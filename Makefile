@@ -3,10 +3,10 @@ tagversion := $(shell git describe --tags | sed -e 's/^\([0-9]\{1,\}[.][0-9]\{1,
 ksp-physics.pdf: ksp-physics.tex .tagversion
 	latexmk -pdf ksp-physics.tex
 	latexmk -c ksp-physics.tex
-	cp ksp-physics.pdf ksp-physics-$(tagversion).pdf
+	ln ksp-physics.pdf ksp-physics-$(tagversion).pdf
 
 .tagversion:
 	echo $(tagversion) > .tagversion
 
 clean:
-	rm -f ksp-physics.pdf .tagversion
+	rm -f *.pdf .tagversion
