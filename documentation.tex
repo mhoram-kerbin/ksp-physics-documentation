@@ -25,7 +25,7 @@
 
 \begin{abstract}
 
-  This documents contains information about the physics of Kerbal Space Program \cite{KSP} 
+  This documents summarizes the physics of Kerbal Space Program \cite{KSP}. It should be valid for versions 0.21 to 0.23.
 
 \end{abstract}
 
@@ -33,9 +33,12 @@
 
 \section{Introduction}
 
-Fortunately I dealt with nearly all physics in KSP during my Ascent
-Optimizer perl-project \cite{PAO}.
-
+During my attempts to use PSOPT as a method for generating ideal
+ascent trajectories for rockets, I needed to implement the physics of
+KSP in C/C++. So I had to gather all the physics related information
+again after my Ascent Optimizer Perl-project \cite{PAO}. Since they
+are available at quite different places, this document should
+summarize them in a central place.
 
 \section{Conventions}
 
@@ -46,7 +49,7 @@ $\Pos_X, \Pos_Y \textrm{ and } \Pos_Z$ denote the X, Y and Z
 components of the vector.
 
 Distance denotes the distance to the planets center and altitude the
-distance to the surfaces sea level.
+distance to the surface sea level.
 
 \section{Physical Constants}
 
@@ -82,7 +85,7 @@ following constants
 
 \subsubsection{Kerbin}
 
-This information is based on \url{http://wiki.kerbalspaceprogram.com/wiki/Kerbin}.
+This information is based on \ref{Kerbin}.
 
 \begin{align*}
   PMass^{(Kerbin)} &:= 5.2915793E22 kg\\
@@ -115,9 +118,8 @@ and longitude by the following formula:
 
 \section{Ground Speed}
 
-Due to the rotation of the planet, the speed relative to the rotation
-of the planet is different from the orbit speed. We call that speed
-the ground speed.
+Due to the rotation of the planet, the groud speed is different from
+the orbital speed.
 
 The difference between the two speed vectors $STV(\Pos)$ is the
 projected earth rotation to the position $\Pos$ of the rocket.
@@ -186,6 +188,9 @@ with increasing distance.
 
 \bibitem{ACB}
   \url{http://wiki.kerbalspaceprogram.com/wiki/API:CelestialBody}
+
+\bibitem{Kerbin}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Kerbin}
 
 \end{thebibliography}
 
