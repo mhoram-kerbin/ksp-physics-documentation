@@ -1,2 +1,2 @@
-documentation.pdf: documentation.tex
-	latexmk -pdf documentation.tex; latexmk -c documentation.tex
+ksp-physics.pdf: ksp-physics.tex
+	latexmk -pdf ksp-physics.tex; latexmk -c ksp-physics.tex
