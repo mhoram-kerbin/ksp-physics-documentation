@@ -1,0 +1,197 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\usepackage[pdfstartview=Fit,pdfpagelayout=SinglePage,breaklinks=true]{hyperref}
+\usepackage{breakurl}
+\usepackage{multicol}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[final]{listings}
+%\usepackage{makeidx}
+\makeindex
+
+\newcommand{\oa}[1]{\overrightarrow{#1}}
+\newcommand{\F}[1]{\oa{F_{#1}}}
+\newcommand{\Pos}{\oa{P}}
+\newcommand{\Vel}{\oa{V}}
+\newcommand{\absvec}[1]{\left|\left|{#1}\right|\right|}
+\begin{document}
+
+\title{Documentation of the KSP Physics}
+\author {Mhoram Kerbin \href{mailto:mhoram.kerbin@gmx.de}{\nolinkurl{mhoram.kerbin@gmx.de}}}
+
+\maketitle
+
+\begin{abstract}
+
+  This documents contains information about the physics of Kerbal Space Program \cite{KSP} 
+
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+
+Fortunately I dealt with nearly all physics in KSP during my Ascent
+Optimizer perl-project \cite{PAO}.
+
+
+\section{Conventions}
+
+We denote by $\Pos$, $\Vel$ and $M$ the position vector, velocity
+vector and the mass of the ship respectively.
+
+$\Pos_X, \Pos_Y \textrm{ and } \Pos_Z$ denote the X, Y and Z
+components of the vector.
+
+Distance denotes the distance to the planets center and altitude the
+distance to the surfaces sea level.
+
+\section{Physical Constants}
+
+
+\subsection{Global Constants}
+
+The \index{conversion factor} conversion factor between pressure and
+density is according to \cite{Atmo}.
+
+\begin{align}
+  CF &:= 1.2230948554874 \frac{kg}{m^3\cdot atm}
+\end{align}
+
+The \index{gravitational constant} gravitational constant $G$ is according to \cite{ACB}.
+\begin{align}
+  G &:= 6.674E-11 N\left(\frac{m}{kg}\right)^2
+\end{align}
+
+\subsection{Planets}
+
+Planets are defined with respect to this problem setting by the
+following constants
+
+\begin{itemize}
+\item Name
+\item \index{Mass of Planet} Mass of Planet $PMass^{(Name)}$ in kg
+\item \index{Planetary Radius} Planetary Radius $PRadius^{(Name)}$ in m
+\item \index{Scale Height} Scale Height $PSH^{(Name)}$ in m
+\item \index{Density at Sealevel} Density at Sealevel $p_0^{(Name)}$ in atm
+\item \index{Rotation Period} Rotation Period $RP^{(Name)}$ in s
+\item \index{Spehre of Influence} Radius of Spehre of Influence$Soi^{(Name)}$ in m
+\end{itemize}
+
+\subsubsection{Kerbin}
+
+This information is based on \url{http://wiki.kerbalspaceprogram.com/wiki/Kerbin}.
+
+\begin{align*}
+  PMass^{(Kerbin)} &:= 5.2915793E22 kg\\
+  PRadius^{(Kerbin)} &:= 600000 m\\
+  PSH^{(Kerbin)} &:= 5000 m\\
+  p_0^{(Kerbin)} &:= 1 atm\\
+  RP^{(Kerbin)} &:= 21600 s\\
+  Soi^{(Kerbin)} &:= 84159286 m\\
+\end{align*}
+
+\section{Atmosphere}
+
+Now we will show how several atmospheric parameters are calculated
+based on \cite{Atmo}.
+\begin{align}
+  AtmosphericHeight^{(Name)} &:= -ln\left(\frac{10^{-6}}{p_0^{(Name)}}\right)\cdot PSH^{(Name)}\\
+  \textrm{Pressure at altitude } p(alt) &:= p_0^{(Name)} \cdot exp\left({\frac{-alt}{PSH^{(Name)}}}\right)\\
+  \textrm{Density at altitude } \rho(alt) &:= CF \cdot p(alt)
+\end{align}
+
+\section{Latitude and Longitude conversion}
+
+From a Position Vector $\Pos$ we can calculate latitude
+and longitude by the following formula:
+
+\begin{align}
+  Lon(\Pos) &:= atan\left(\frac{\Pos_Y}{\Pos_X}\right)\\
+  Lat(\Pos) &:= atan\left(\frac{\Pos_Z}{\sqrt{\Pos_X^2+\Pos_Y^2}}\right)
+\end{align}
+
+\section{Ground Speed}
+
+Due to the rotation of the planet, the speed relative to the rotation
+of the planet is different from the orbit speed. We call that speed
+the ground speed.
+
+The difference between the two speed vectors $STV(\Pos)$ is the
+projected earth rotation to the position $\Pos$ of the rocket.
+
+We can convert orbital $\Vel$ to ground speed $\oa{GV}$
+vectors with the following equation.
+
+\begin{align}
+  STV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot cos\left(Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-sin(Lon(\Pos)\\cos(Lon(\Pos))\\0\end{smallmatrix}\right)\\
+  \oa{GV} &:= \Vel - STV(\Pos)
+\end{align}
+
+\section{Drag Coefficient}
+
+In KSP $d$ is the drag coefficient of the rocket. It is a mass-based
+average of the drag coefficients of all parts of the rocket and is
+dimensionless.
+
+Usually it is near to $0.2$.
+
+Consider a rocket consisting of a Mk1 Cockpit, a FL-T800 Fuel Tank and
+a LV-909 Liquid Fuel Engine. For this rocket the drag coefficient is:
+\begin{align}
+  d &= \frac{1.25 \cdot 0.1 + 4.5 \cdot 0.2 + 0.5 \cdot 0.2}{ 1.25 + 4.5 + 0.5 }\nonumber\\
+  &= \frac{1.125}{6.25}\nonumber\\
+  &= 0.18\nonumber
+\end{align}
+
+\section{Drag}
+
+Drag is the force applied to rocket based on the movement through the
+atmossphere it is directed in an opposite direction to the movement.
+
+Since it is directly proportional to the cross-sectional area $A$ of
+the rocket and this value is approximated in KSP by $A = 0.008 \cdot
+M$ we get
+
+\begin{align}
+  \F{D} &:= 0.5 \cdot \rho(alt)\cdot GV^2\cdot d \cdot 0.008 \cdot M
+\end{align}
+
+
+\section{Gravity}
+
+The gravity force is directed towards the planets core and lets lower
+with increasing distance.
+
+\begin{align}
+  LocalGravityParameter^{(Name)} &:= G \cdot PMass^{(Name)} \nonumber\\
+  LocalGravity(distance) &:= \frac{LocalGravityParameter}{distance^2}\nonumber\\ 
+  \F{G} &:= \frac{- \Pos}{\absvec{\Pos}}\cdot M \cdot LocalGravity\left(\absvec{\Pos}\right)
+\end{align}
+
+\section{Engines}
+
+\begin{thebibliography}{KSP}
+
+\bibitem{KSP}
+  \url{http://kerbalspaceprogram.com/}
+
+\bibitem{PAO}
+  \url{https://github.com/mhoram-kerbin/ascent-optimizer}
+
+\bibitem{Atmo}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Atmosphere}
+
+\bibitem{ACB}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/API:CelestialBody}
+
+\end{thebibliography}
+
+\end{document}
+
+% Local Variables:
+% ispell-local-dictionary:"american";
+% End:
+
