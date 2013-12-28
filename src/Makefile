@@ -3,14 +3,14 @@ all: main
 clean:
 	rm -f *.o kapri
 
-vector.o: vector.cc vector.hh
-	g++ -Wall -pedantic -c vector.cc
+Vector.o: Vector.cc Vector.hh
+	g++ -Wall -pedantic -c Vector.cc
 
-planet.o: planet.cc planet.hh vector.o
-	g++ -Wall -pedantic -c planet.cc
+Planet.o: Planet.cc Planet.hh Vector.o
+	g++ -Wall -pedantic -c Planet.cc
 
-engine.o: engine.cc engine.hh
-	g++ -Wall -pedantic -c engine.cc
+Engine.o: Engine.cc Engine.hh
+	g++ -Wall -pedantic -c Engine.cc
 
-main: planet.o engine.o main.cc
-	g++ -Wall -pedantic -o kapri planet.o engine.o vector.o main.cc
+main: Planet.o Engine.o main.cc
+	g++ -Wall -pedantic -o kapri Planet.o Engine.o Vector.o main.cc

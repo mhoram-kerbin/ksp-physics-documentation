@@ -22,11 +22,11 @@
 
 #include <iostream>
 
-#include "planet.hh"
+#include "Planet.hh"
 
 int main ()
 {
-  Planet kerbin = Planet("Kerbin");
+  Planet kerbin = Planet(PLANET_KERBIN);
   std::string dd = kerbin.get_name();
 
   std::cout << dd;

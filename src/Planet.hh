@@ -1,5 +1,5 @@
 /*
-  planet.hh
+  Planet.hh
 
   Copyright 2013 Mhoram Kerbin
 
@@ -24,7 +24,7 @@
 
 #include <string>
 
-#include "vector.hh"
+#include "Vector.hh"
 
 #define PLANET_KERBIN 0
 
@@ -57,5 +57,5 @@ public:
   std::string get_name();
   double pressure (double altitude);
   double density (double altitude);
-  vector ground_velocity (vector pos, vector vel);
+  Vector ground_velocity (Vector pos, Vector vel);
 };

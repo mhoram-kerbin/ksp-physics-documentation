@@ -1,5 +1,5 @@
 /*
-  airvehicle.hh
+  Engine.cc
 
   Copyright 2013 Mhoram Kerbin
 
@@ -20,20 +20,33 @@
 
  */
 
-#pragma once
+#include "Engine.hh"
 
-#include "planet.hh";
+Engine::Engine (std::string name, double mass, double thrust, double drag,
+				double isp_1atm, double isp_vac)
+  : name(name), mass(mass), thrust(thrust), drag(drag),
+	isp_1atm(isp_1atm), isp_vac(isp_vac)
+{ }
 
-class airvehicle {
-private:
-  Planet planet;
-  vector position;
-  vector velocity;
+double Engine::get_mass()
+{
+  return mass;
+}
 
-public:
-  airvehicle(Planet p);
-  double get_mass();
-  double get_drag_force();
-  double get_gravity_force();
-  double get_thrust_force();
+double Engine::get_thrust()
+{
+  return thrust;
+}
+
+double Engine::get_isp(double pressure)
+{
+  double real_p;
+  if (pressure > 1) {
+	real_p = 1;
+  } else {
+	real_p = pressure;
+  }
+
+  return isp_1atm * real_p + isp_vac * (1 - real_p);
+
 }

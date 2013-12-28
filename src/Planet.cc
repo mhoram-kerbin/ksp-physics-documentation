@@ -1,5 +1,5 @@
 /*
-  planet.cc
+  Planet.cc
 
   Copyright 2013 Mhoram Kerbin
 
@@ -23,7 +23,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#include "planet.hh"
+#include "Planet.hh"
 
 Planet::Planet (std::string name, double mass, double radius,
 	double scale_height, double p_0,
@@ -100,13 +100,13 @@ double Planet::density (double altitude)
   return CONVERSION_FACTOR * pressure(altitude);
 }
 
-vector Planet::ground_velocity (vector pos, vector vel)
+Vector Planet::ground_velocity (Vector pos, Vector vel)
 {
   double posN = pos.norm();
   double longitude = atan2(pos.y, pos.x);
   double latitude = atan2(pos.z, sqrt(pos.x*pos.x + pos.y*pos.y));
 
-  vector stv = vector(-sin(longitude), cos(longitude), 0) *
+  Vector stv = Vector(-sin(longitude), cos(longitude), 0) *
     (posN * 2 * M_PI * cos(latitude) / sidereal_rotation_period);
   return vel - stv;
 }

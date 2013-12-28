@@ -1,5 +1,5 @@
 /*
-  vector.cc
+  Engine.hh
 
   Copyright 2013 Mhoram Kerbin
 
@@ -20,41 +20,31 @@
 
  */
 
-#include <cmath>
-#include "vector.hh"
+#pragma once
 
-vector::vector (double x, double y, double z) :
-  x(x), y(y), z(z)
-{ }
+#include <string>
 
-double vector::norm ()
-{
-  return sqrt(x*x+y*y+z*z);
-}
 
-double vector::operator* (const vector& b)
-{
-  return x*b.x + y*b.y + z*b.z;
-}
+#define ENG_LV_T30   0
+#define ENG_LV_T45   1
+#define ENG_LV_909   2
+#define ENG_MAINSAIL 3
+#define ENG_LV_N     4
 
-vector vector::operator* (const double& f)
-{
-  return vector(x*f, y*f, z*f);
-}
+class Engine {
+private:
+  std::string name;
 
-vector vector::operator+ (const vector& b)
-{
-  return vector(x+b.x, y+b.y, z+b.z);
-}
+  double mass;     // in kg
+  double thrust;   // in kN
+  double drag;     // dimensionless
+  double isp_1atm; // in m/s
+  double isp_vac;  // in m/s
 
-vector vector::operator- (const vector& b)
-{
-  return vector(x-b.x, y-b.y, z-b.z);
-}
-
-vector vector::operator/ (const vector& b)
-{
-  return vector(y*b.z - z*b.y,
-		z*b.x - x*b.z,
-		x*b.y - y*b.x);
-}
+public:
+  Engine(std::string name, double mass, double thrust, double drag,
+		 double isp_1atm, double isp_vac);
+  double get_mass();
+  double get_thrust();
+  double get_isp(double pressure);
+};

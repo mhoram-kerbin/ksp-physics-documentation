@@ -1,5 +1,5 @@
 /*
-  engine.hh
+  Vector.hh
 
   Copyright 2013 Mhoram Kerbin
 
@@ -22,29 +22,19 @@
 
 #pragma once
 
-#include <string>
-
-
-#define ENG_LV_T30   0
-#define ENG_LV_T45   1
-#define ENG_LV_909   2
-#define ENG_MAINSAIL 3
-#define ENG_LV_N     4
-
-class engine {
-private:
-  std::string name;
-
-  double mass;     // in kg
-  double thrust;   // in kN
-  double drag;     // dimensionless
-  double isp_1atm; // in m/s
-  double isp_vac;  // in m/s
+class Vector
+{
 
 public:
-  engine(std::string name, double mass, double thrust, double drag,
-		 double isp_1atm, double isp_vac);
-  double get_mass();
-  double get_thrust();
-  double get_isp(double pressure);
+  double x;
+  double y;
+  double z;
+
+  Vector(double x, double y, double z);
+  double norm();
+  Vector operator* (const double& f);
+  double operator* (const Vector& b);
+  Vector operator+ (const Vector& b);
+  Vector operator- (const Vector& b);
+  Vector operator/ (const Vector& b);
 };

@@ -1,5 +1,5 @@
 /*
-  vector.hh
+  Vector.cc
 
   Copyright 2013 Mhoram Kerbin
 
@@ -20,21 +20,41 @@
 
  */
 
-#pragma once
+#include <cmath>
+#include "Vector.hh"
 
-class vector
+Vector::Vector (double x, double y, double z) :
+  x(x), y(y), z(z)
+{ }
+
+double Vector::norm ()
 {
+  return sqrt(x*x+y*y+z*z);
+}
 
-public:
-  double x;
-  double y;
-  double z;
+double Vector::operator* (const Vector& b)
+{
+  return x*b.x + y*b.y + z*b.z;
+}
 
-  vector(double x, double y, double z);
-  double norm();
-  vector operator* (const double& f);
-  double operator* (const vector& b);
-  vector operator+ (const vector& b);
-  vector operator- (const vector& b);
-  vector operator/ (const vector& b);
-};
+Vector Vector::operator* (const double& f)
+{
+  return Vector(x*f, y*f, z*f);
+}
+
+Vector Vector::operator+ (const Vector& b)
+{
+  return Vector(x+b.x, y+b.y, z+b.z);
+}
+
+Vector Vector::operator- (const Vector& b)
+{
+  return Vector(x-b.x, y-b.y, z-b.z);
+}
+
+Vector Vector::operator/ (const Vector& b)
+{
+  return Vector(y*b.z - z*b.y,
+		z*b.x - x*b.z,
+		x*b.y - y*b.x);
+}
