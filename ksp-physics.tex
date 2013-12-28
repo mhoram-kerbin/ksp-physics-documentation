@@ -164,16 +164,33 @@ M$ we get
 
 \section{Gravity}
 
-The gravity force is directed towards the planets core and lets lower
+The gravity force is directed towards the planets core and gets lower
 with increasing distance.
 
 \begin{align}
   LocalGravityParameter^{(Name)} &:= G \cdot PMass^{(Name)} \nonumber\\
-  LocalGravity(distance) &:= \frac{LocalGravityParameter}{distance^2}\nonumber\\ 
+  LocalGravity(distance) &:= \frac{LocalGravityParameter}{distance^2}\nonumber\\
   \F{G} &:= \frac{- \Pos}{\absvec{\Pos}}\cdot M \cdot LocalGravity\left(\absvec{\Pos}\right)
 \end{align}
 
 \section{Engines}
+
+The Specific impulse $I_{SP}$ describes the engine efficiency and is
+parameterized for an engine by ISP at sealevel and ISP in vacuum.
+
+The ISP is linear in the pressure $p$ and cut off at $1atm$
+(citation needed).  We can calculate the ISP based on the pressure
+$p$ by
+\begin{align}
+  np(p) &:= min(1 atm, p)\\
+  ISP(p) &:= ISP_{1atm} \cdot np(p) + ISP_{VAC} \cdot (1-np(p))
+\end{align}
+
+According to \cite{ECF} the conversion factor $g_0$ is not
+$9.81\frac{m}{s^2}$, but
+\begin{align}
+  g_0 &:= 9.82\frac{m}{s^2}
+\end{align}
 
 \begin{thebibliography}{Kerbin}
 
@@ -191,6 +208,9 @@ with increasing distance.
 
 \bibitem{Kerbin}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Kerbin}
+
+\bibitem{ECF}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Specific_impulse#Conversion_factor}
 
 \end{thebibliography}
 

@@ -1,2 +1,4 @@
 /*.pdf
 /.tagversion
+/src/*.o
+/src/kapri
