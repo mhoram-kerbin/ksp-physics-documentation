@@ -214,13 +214,14 @@ and Cartesian coordinates.
 \subsection{Cartesian}
 
 We can convert cartesian to kepler coordinates by the following
-equations courtesy of \cite{RSCK}, where $\oa{h}$ denotes the orbital
-momentum vector and $\oa{e}$ the eccentricity vector.
+equations courtesy of \cite{RSCK}, where $\mu^{(Name)}$ denotes the
+gravitational Parameter of the planet, $\oa{h}$ the orbital momentum
+vector and $\oa{e}$ the eccentricity vector.
 
 \begin{align}
   \oa{h} &:= \Pos \times \Vel\nonumber\\
-  a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{2}{\nu}\cdot\absvec{\Pos} \right)^{-1}\\
-  \oa{e} &:= \frac{\Vel\times \oa{h}}{\nu} - \absvec{\Pos}\nonumber\\
+  a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{2}{\mu^{(Name)}}\cdot\absvec{\Pos} \right)^{-1}\\
+  \oa{e} &:= \frac{\Vel\times \oa{h}}{\mu^{(Name)}} - \absvec{\Pos}\nonumber\\
   e &:= \absvec{\oa{e}}\\
   i &:= arccos\left(\frac{\oa{h}_Z}{\absvec{\oa{h}}} \right)\\
   \oa{n} & := \dddvec{0}{0}{1} \times \oa{h} = \dddvec{-\oa{h}_Y}{\oa{h}_X}{0}\nonumber\\
