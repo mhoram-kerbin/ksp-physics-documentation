@@ -38,15 +38,27 @@ Planet::Planet (std::string name, double mass, double radius,
 Planet::Planet (std::string planet_name)
 {
   if (planet_name == "Kerbin") {
-    name = "Kerbin";
-    mass = 5.2915793E22;
-    radius = 600000;
-    scale_height = 5000;
-    p_0 = 1;
-    sidereal_rotation_period = 21600;
-    soi = 84159286;
-    init_atmospheric_height();
+	init_kerbin();
   }
+}
+
+Planet::Planet(int planet_id)
+{
+  if (planet_id == PLANET_KERBIN) {
+	init_kerbin();
+  }
+}
+
+void Planet::init_kerbin()
+{
+  name = "Kerbin";
+  mass = 5.2915793E22;
+  radius = 600000;
+  scale_height = 5000;
+  p_0 = 1;
+  sidereal_rotation_period = 21600;
+  soi = 84159286;
+  init_atmospheric_height();
 }
 
 void Planet::init_atmospheric_height()

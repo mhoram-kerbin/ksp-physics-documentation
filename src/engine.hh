@@ -36,7 +36,7 @@ private:
   std::string name;
 
   double mass;     // in kg
-  double thrust;    // in kN
+  double thrust;   // in kN
   double drag;     // dimensionless
   double isp_1atm; // in m/s
   double isp_vac;  // in m/s

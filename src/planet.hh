@@ -26,7 +26,7 @@
 
 #include "vector.hh"
 
-
+#define PLANET_KERBIN 0
 
 // Conversion factor for pressure and density in kg/(atm*m^3)
 #define CONVERSION_FACTOR 1.2230948554874
@@ -51,6 +51,8 @@ public:
 	 double p_scale_height, double p_p_0,
 	 double p_sidereal_rotation_period, double p_soi);
   Planet(std::string planet_name);
+  Planet(int planet_id);
+  void init_kerbin();
   double get_atmospheric_height();
   std::string get_name();
   double pressure (double altitude);
