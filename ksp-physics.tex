@@ -16,6 +16,7 @@
 \newcommand{\Pos}{\oa{P}}
 \newcommand{\Vel}{\oa{V}}
 \newcommand{\absvec}[1]{\left|\left|{#1}\right|\right|}
+\newcommand{\dddvec}[3]{\left(\begin{smallmatrix}{#1}\\{#2}\\{#3}\end{smallmatrix}\right)}
 \begin{document}
 
 \title{Documentation of KSP Physics\\\small{Version \input{.tagversion}}}
@@ -192,6 +193,67 @@ $9.81\frac{m}{s^2}$, but
   g_0 &:= 9.82\frac{m}{s^2}
 \end{align}
 
+\section{Orbital Mechanics}
+
+An Orbit can be described either by cartesian coordinates of a
+position vector $\Pos$ and a velocity vector $\Vel$ or by kepler
+elements \cite{Kepler}
+
+\begin{itemize}
+\item Semimajor axis ($a$)
+\item Eccentricity ($e$)
+\item Inclination ($i$)
+\item Longitude of the ascending node ($\Omega$)
+\item Argument of periapsis ($\omega$)
+\item True Anomaly ($\nu$)
+\end{itemize}
+
+This section contains a description of the conversion between Kepler
+and Cartesian coordinates.
+
+\subsection{Cartesian}
+
+We can convert cartesian to kepler coordinates by the following
+equations courtesy of \cite{RSCK}, where $\oa{h}$ denotes the orbital
+momentum vector and $\oa{e}$ the eccentricity vector.
+
+\begin{align}
+  \oa{h} &:= \Pos \times \Vel\nonumber\\
+  a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{2}{\nu}\cdot\absvec{\Pos} \right)^{-1}\\
+  \oa{e} &:= \frac{\Vel\times \oa{h}}{\nu} - \absvec{\Pos}\nonumber\\
+  e &:= \absvec{\oa{e}}\\
+  i &:= arccos\left(\frac{\oa{h}_Z}{\absvec{\oa{h}}} \right)\\
+  \oa{n} & := \dddvec{0}{0}{1} \times \oa{h} = \dddvec{-\oa{h}_Y}{\oa{h}_X}{0}\nonumber\\
+  \Omega &:= \left\{
+    \begin{array}{l l}
+      0 & \textrm{if } \absvec{\oa{n}} = 0\\
+      arccos\left(\dddvec{1}{0}{0}\cdot\frac{\oa{n}}{\absvec{\oa{n}}} \right) & \textrm{if } \oa{n}_Y = \oa{h}_X >= 0\\
+      2\pi - arccos\left(\dddvec{1}{0}{0}\cdot\frac{\oa{n}}{\absvec{\oa{n}}} \right) & \textrm{otherwise}
+    \end{array}
+    \right.\\
+  \omega & := \left\{
+    \begin{array}{l l}
+      0 & \textrm{if } \absvec{\oa{n}} = 0\\
+      arccos\left(\frac{\oa{n}\cdot\oa{e}}{\absvec{\oa{n}}\cdot\absvec{\oa{e}}} \right) & \textrm{if } \oa{e}_Z >= 0\\
+      2\pi - arccos\left(\frac{\oa{n}\cdot\oa{e}}{\absvec{\oa{n}}\cdot\absvec{\oa{e}}}\right) & \textrm{otherwise}
+    \end{array}
+    \right.\\
+    \nu &:= \left\{
+    \begin{array}{l l}
+      arccos\left(\frac{\Pos\cdot\oa{e}}{\absvec{\Pos}\cdot\absvec{\oa{e}}}\right) & \textrm{if } \Pos\cdot\Vel >= 0\\
+      2\pi - arccos\left(\frac{\Pos\cdot\oa{e}}{\absvec{\Pos}\cdot\absvec{\oa{e}}}\right) & \textrm{otherwise}
+    \end{array}
+    \right.
+\end{align}
+
+\subsection{Additional functions}
+
+We can calculate the periapsis $Peri$ as
+
+\begin{align}
+Peri & := a \cdot (1 - e)
+\end{align}
+
 \begin{thebibliography}{Kerbin}
 
 \bibitem{KSP}
@@ -211,6 +273,12 @@ $9.81\frac{m}{s^2}$, but
 
 \bibitem{ECF}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Specific_impulse#Conversion_factor}
+
+\bibitem{Kepler}
+  \url{http://en.wikipedia.org/wiki/Kepler_orbit}
+
+\bibitem{RSCK}
+  \url{https://downloads.rene-schwarz.com/dc/category/20}
 
 \end{thebibliography}
 
