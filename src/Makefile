@@ -15,5 +15,5 @@ Engine.o: Engine.cc Engine.hh
 Cartesian.o: Cartesian.cc Cartesian.hh Orbit.hh
 	g++ -Wall -pedantic -c Cartesian.cc
 
-main: Planet.o Engine.o main.cc
-	g++ -Wall -pedantic -o kapri Planet.o Engine.o Vector.o main.cc
+main: Planet.o Engine.o main.cc Cartesian.o
+	g++ -Wall -pedantic -o kapri Cartesian.o Engine.o Planet.o Vector.o main.cc

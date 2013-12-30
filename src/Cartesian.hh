@@ -33,7 +33,7 @@ private:
   Vector vel;
   double gravitational_parameter;
 public:
-  Cartesian(Vecor pos, Vector vel, double gravitational_parameter);
+  Cartesian(Vector pos, Vector vel, double gravitational_parameter);
   Vector get_pos();
   Vector get_vel();
 };

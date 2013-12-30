@@ -10,7 +10,7 @@
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
 
-  Foobar is distributed in the hope that it will be useful,
+  KaPRI is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
@@ -22,16 +22,16 @@
 
 #include "Cartesian.hh"
 
-Cartesian::Cartesian (Vecor pos, Vector vel, double gravitational_parameter)
+Cartesian::Cartesian (Vector pos, Vector vel, double gravitational_parameter)
   : pos(pos), vel(vel), gravitational_parameter(gravitational_parameter)
 { }
 
-Vector Cartesian::Cartesian get_pos()
+Vector Cartesian::get_pos()
 {
   return pos;
 }
 
-Vector Cartesian::Cartesian get_vel()
+Vector Cartesian::get_vel()
 {
   return vel;
 }
