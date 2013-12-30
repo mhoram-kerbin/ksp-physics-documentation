@@ -162,7 +162,6 @@ M$ we get
   \F{D} &:= 0.5 \cdot \rho(alt)\cdot GV^2\cdot d \cdot 0.008 \cdot M \cdot \frac{-\Vel}{\absvec{\Vel}}
 \end{align}
 
-
 \section{Gravity}
 
 The gravity force is directed towards the planets core and gets lower
@@ -220,7 +219,7 @@ vector and $\oa{e}$ the eccentricity vector.
 
 \begin{align}
   \oa{h} &:= \Pos \times \Vel\nonumber\\
-  a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{2}{\mu^{(Name)}}\cdot\absvec{\Vel}^2 \right)^{-1}\\
+  a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{\absvec{\Vel}^2}{\mu^{(Name)}}\cdot \right)^{-1}\\
   \oa{e} &:= \frac{\Vel\times \oa{h}}{\mu^{(Name)}} - \absvec{\Pos}\nonumber\\
   e &:= \absvec{\oa{e}}\\
   i &:= arccos\left(\frac{\oa{h}_Z}{\absvec{\oa{h}}} \right)\\
