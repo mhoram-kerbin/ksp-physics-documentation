@@ -152,14 +152,14 @@ a LV-909 Liquid Fuel Engine. For this rocket the drag coefficient is:
 \section{Drag}
 
 Drag is the force applied to rocket based on the movement through the
-atmossphere it is directed in an opposite direction to the movement.
+atmosphere it is directed in an opposite direction to the movement.
 
 Since it is directly proportional to the cross-sectional area $A$ of
-the rocket and this value is approximated in KSP by $A = 0.008 \cdot
-M$ we get
+the rocket and this value is approximated in KSP by $A = 0.008
+\frac{m^2}{kg} \cdot M$ we get
 
 \begin{align}
-  \F{D} &:= 0.5 \cdot \rho(alt)\cdot GV^2\cdot d \cdot 0.008 \cdot M \cdot \frac{-\Vel}{\absvec{\Vel}}
+  \F{D} &:= - 0.5 \cdot \rho(alt)\cdot GV^2\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \frac{\Vel}{\absvec{\Vel}}
 \end{align}
 
 \section{Gravity}
@@ -168,9 +168,9 @@ The gravity force is directed towards the planets core and gets lower
 with increasing distance.
 
 \begin{align}
-  LocalGravityParameter^{(Name)} &:= G \cdot PMass^{(Name)} \nonumber\\
+  \mu^{(Name)} = LocalGravityParameter^{(Name)} &:= G \cdot PMass^{(Name)} \nonumber\\
   LocalGravity(distance) &:= \frac{LocalGravityParameter}{distance^2}\nonumber\\
-  \F{G} &:= \frac{- \Pos}{\absvec{\Pos}}\cdot M \cdot LocalGravity\left(\absvec{\Pos}\right)
+  \F{G} &:= - M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}
 \end{align}
 
 \section{Engines}
