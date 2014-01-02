@@ -102,7 +102,7 @@ This information is based on \cite{Kerbin}.
 Now we will show how several atmospheric parameters are calculated
 based on \cite{Atmo}.
 \begin{align}
-  AtmosphericHeight^{(Name)} &:= -ln\left(\frac{10^{-6}}{p_0^{(Name)}}\right)\cdot PSH^{(Name)}\\
+  AtmosphericHeight^{(Name)} &:= -ln\left(10^{-6}\right)\cdot PSH^{(Name)}\\
   \textrm{Pressure at altitude } p(alt) &:= p_0^{(Name)} \cdot exp\left({\frac{-alt}{PSH^{(Name)}}}\right)\\
   \textrm{Density at altitude } \rho(alt) &:= CF \cdot p(alt)
 \end{align}
