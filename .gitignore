@@ -2,3 +2,8 @@
 /.tagversion
 /src/*.o
 /src/kapri
+/*.aux
+/*.idx
+/*.log
+/*.out
+/*.toc
