@@ -243,7 +243,7 @@ elements \cite{Kepler}
 This section contains a description of the conversion between Kepler
 and Cartesian coordinates.
 
-\subsection{Cartesian}
+\subsection{Cartesian to Kepler}
 
 We can convert cartesian to kepler coordinates by the following
 equations courtesy of \cite{RSCK}, where $\mu^{(Name)}$ denotes the
@@ -279,11 +279,32 @@ vector and $\oa{e}$ the eccentricity vector.
     \right.
 \end{align}
 
-\subsection{Additional functions}
+\subsection{Kepler to Cartesian}
 
-We can calculate the periapsis $Peri$ as
+We als can convert kepler to cartesian coordinates by the following
+equations courtesy of \cite{RSKC}.
+
+We first calculate the eccentric Anomaly $E$ by the formula $M = E -
+e\cdot sin(E)$. Since this equation does not have a closed-form
+solution for $E$, we use the Newton-Raphson method to approximate the
+solution.
+%\begin{align}
+%  \textrm{Set } Temp := \left\{
+%    \begin{array}{l l}
+%      \pi & \textrm{if } e > 0.8\\
+%      M
+%\end{align}
+
+
 
 \begin{align}
+  \absvec{\oa{o}} & := a(1-e \cdot cos(E))\\
+  \oa{o} & := \absvec{\oa{o}} \dddvec{cos(\nu)}{sin(\nu)}{0}\\
+  \Pos & := \dddvec{1}{2}{3} TO BE DONE
+\end{align}
+
+
+\section{Orbital Mechanics}
 Peri & := a \cdot (1 - e)
 \end{align}
 
@@ -312,6 +333,9 @@ Peri & := a \cdot (1 - e)
 
 \bibitem{RSCK}
   \url{https://downloads.rene-schwarz.com/dc/category/20}
+
+\bibitem{RSKC}
+  \url{https://downloads.rene-schwarz.com/dc/category/19}
 
 \bibitem{SPI}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Specific_impulse#Formula}
