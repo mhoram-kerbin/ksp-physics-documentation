@@ -305,8 +305,38 @@ solution.
 
 
 \section{Orbital Mechanics}
+
+We can calculate the apoapsis $Apo$ and periapsis $Peri$ as
+
+\begin{align}
+Apo & := a \cdot (1 + e)\\
 Peri & := a \cdot (1 - e)
 \end{align}
+
+Conversely we can calculate the eccentricity and semi-major as
+
+\begin{align}
+  a & := \frac{1}{2}\cdot(Apo + Peri)\\
+  e & := \frac{Apo}{a} - 1\\
+  e & := 1 - \frac{Peri}{a}
+\end{align}
+
+The speed of an object that orbits a Body at both Apsides is
+
+\begin{align}
+V_{Apo} & := \sqrt{\mu^{(Body)} \cdot \left(\frac{2}{Apo} - \frac{1}{a}\right)}\\
+V_{Peri} & := \sqrt{\mu^{(Body)} \cdot\left(\frac{2}{Peri} - \frac{1}{a}\right)}
+\end{align}
+
+In the case of a circular orbit, they are equal.
+
+The orbital period (with the meaning of sidereal period \cite{SIDPER}) around a Body is
+
+\begin{align}
+SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
+\end{align}
+
+
 
 \begin{thebibliography}{Kerbin}
 
@@ -339,6 +369,9 @@ Peri & := a \cdot (1 - e)
 
 \bibitem{SPI}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Specific_impulse#Formula}
+
+\bibitem{SIDPER}
+  \url{http://en.wikipedia.org/wiki/Sidereal_period}
 
 \end{thebibliography}
 
