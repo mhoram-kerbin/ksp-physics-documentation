@@ -108,8 +108,8 @@ based on \cite{Atmo}.
   p(alt) &:=
   \left\{
       \begin{array}{l l}
-        p_0^{(Name)} \cdot exp\left({\frac{-alt}{PSH^{(Name)}}}\right) & \textrm{if } alt > AH^{(Name)}\\
-        0 &\textrm{if } alt \leq AH^{(Name)}
+        p_0^{(Name)} \cdot exp\left({\frac{-alt}{PSH^{(Name)}}}\right) & \textrm{if } alt < AH^{(Name)}\\
+        0 &\textrm{if } alt \geq AH^{(Name)}
       \end{array}
     \right.\\
     \textrm{Density at altitude}\nonumber\\
