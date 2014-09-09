@@ -26,7 +26,8 @@
 
 \begin{abstract}
 
-  This documents summarizes the physics of Kerbal Space Program \cite{KSP}. It should be valid for versions 0.21 to 0.24.2.
+  This documents summarizes the physics of Kerbal Space Program
+  \cite{KSP}. It should be valid for versions 0.21 to 0.24.2.
 
 \end{abstract}
 
@@ -81,7 +82,7 @@ following constants
 \item \index{Scale Height} Scale Height $PSH^{(Name)}$ in m
 \item \index{Density at Sealevel} Density at Sealevel $p_0^{(Name)}$ in atm
 \item \index{Rotation Period} Rotation Period $RP^{(Name)}$ in s
-\item \index{Spehre of Influence} Radius of Spehre of Influence$Soi^{(Name)}$ in m
+\item \index{Spehre of Influence} Radius of Spehre of Influence $Soi^{(Name)}$ in m
 \end{itemize}
 
 \subsubsection{Kerbin}
@@ -126,20 +127,20 @@ and longitude by the following formula:
   Lat(\Pos) &:= atan\left(\frac{\Pos_Z}{\sqrt{\Pos_X^2+\Pos_Y^2}}\right)
 \end{align}
 
-\section{Ground Speed}
+\section{Surface Velocity}
 
-Due to the rotation of the planet, the groud speed is different from
+Due to the rotation of the planet, the surface velocity is different from
 the orbital speed.
 
-The difference between the two speed vectors $STV(\Pos)$ is the
+The difference between the two speed vectors $DiffV(\Pos)$ is the
 projected earth rotation to the position $\Pos$ of the rocket.
 
-We can convert orbital $\Vel$ to ground speed $\oa{GV}$
+We can convert orbital $\Vel$ to surface velocity $\oa{SV}$
 vectors with the following equation.
 
 \begin{align}
-  STV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot cos\left(Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-sin(Lon(\Pos)\\cos(Lon(\Pos))\\0\end{smallmatrix}\right)\\
-  \oa{GV} &:= \Vel - STV(\Pos)
+  DiffV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot cos\left(Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-sin(Lon(\Pos)\\cos(Lon(\Pos))\\0\end{smallmatrix}\right)\\
+  \oa{SV} &:= \Vel - DiffV(\Pos)
 \end{align}
 
 \section{Drag Coefficient}
@@ -168,8 +169,8 @@ the rocket and this value is approximated in KSP by $A = 0.008
 \frac{m^2}{kg} \cdot M$ we get
 
 \begin{align}
-  \F{D} &:= - 0.5 \cdot \rho(alt)\cdot \absvec{\oa{GV}}^2\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \frac{\oa{GV}}{\absvec{\oa{GV}}} \nonumber\\
-  &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{GV}} \cdot \oa{GV}
+  \F{D} &:= - 0.5 \cdot \rho(alt)\cdot \absvec{\oa{SV}}^2\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \frac{\oa{SV}}{\absvec{\oa{SV}}} \nonumber\\
+  &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{SV}} \cdot \oa{SV}
 \end{align}
 
 \section{Gravity}
@@ -224,6 +225,22 @@ So we get a fuel consumption $\dot{m}$ (change of mass) \cite{SPI} of:
 
 Jet Engines are described in a nonlinear way. Details can be found in
 this thread: \url{http://forum.kerbalspaceprogram.com/threads/67606}
+
+\subsection{ISP Calculation}
+
+A ship with multiple engines that have different ISP-profiles has an
+averaged ISP that is based on the ISP of all running engines.
+
+The calculation of the ships ISP is described on the wiki
+\cite{MulEng}.
+
+A ship with $n$ running engines, where each engine $i$ has a thrust of
+$F_{T_i}$ and a specific impulse of $I_{SP_i}$ has a total ISP of:
+
+\begin{align}
+  I_{SP} := \frac{\sum_i{F_{T_i}}}{\sum_i{\frac{F_{T_i}}{I_{SP_i}}}}
+\end{align}
+
 
 \section{Coordinate Conversion}
 
@@ -372,6 +389,9 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \bibitem{SIDPER}
   \url{http://en.wikipedia.org/wiki/Sidereal_period}
+
+\bibitem{MulEng}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Specific_impulse#Multiple_engines}
 
 \end{thebibliography}
 
