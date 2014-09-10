@@ -169,11 +169,27 @@ vectors with the following equation.
   \oa{SV} &:= \Vel - DiffV(\Pos)
 \end{align}
 
-\section{Drag Coefficient}
+\section{Forces}
+
+There are three forces that effect the flightpath of a rocket, namely
+Drag, Gravity and Thrust. This section details them.
+
+\subsection{Drag}
+
+Drag is the force applied to rocket based on the movement through the
+atmosphere it is directed in an opposite direction to the movement.
+
+It should be notet that since the atmosphere rotates with the planet,
+the surface velocity is the relevant velocity and not the orbital
+velocity.
+
+\subsubsection{Drag Coefficient}
 
 In KSP $d$ is the drag coefficient of the rocket. It is a mass-based
 average of the drag coefficients of all parts of the rocket and is
 dimensionless.
+
+It indicates how much it is decellerated by means of air friction.
 
 Usually it is near to $0.2$.
 
@@ -188,21 +204,18 @@ coefficient is:
   &= 0.18\nonumber
 \end{align}
 
-\section{Drag}
+\subsubsection{Drag Force}
 
-Drag is the force applied to rocket based on the movement through the
-atmosphere it is directed in an opposite direction to the movement.
-
-Since it is directly proportional to the cross-sectional area $A$ of
-the rocket and this value is approximated in KSP by $A = 0.008
-\frac{m^2}{kg} \cdot M$ we get
+Since the drag force $\F{D}$ is directly proportional to the
+cross-sectional area $A$ of the rocket and this value is approximated
+in KSP by $A = 0.008 \frac{m^2}{kg} \cdot M$ we get
 
 \begin{align}
   \F{D} &:= - 0.5 \cdot \rho(alt)\cdot \absvec{\oa{SV}}^2\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \frac{\oa{SV}}{\absvec{\oa{SV}}} \nonumber\\
   &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{SV}} \cdot \oa{SV}
 \end{align}
 
-\section{Gravity}
+\subsection{Gravity}
 
 The gravity force is directed towards the planets core and gets lower
 with increasing distance.
@@ -213,19 +226,9 @@ with increasing distance.
   \F{G} &:= - M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}
 \end{align}
 
-\section{Acceleration}
+\subsection{Engines}
 
-The rocket is subect to the three forces drag $\F{D}$, gravity $\F{G}$
-and thrust $\F{T}$.  The acceleration vector $\oa{a}$ based on these
-three forces is:
-
-\begin{align}
-  \oa{a} &:= M^{-1} \cdot(\F{D} + \F{G} + \F{T})
-\end{align}
-
-\section{Engines}
-
-\subsection{Rocket Engines}
+\subsubsection{Rocket Engines}
 
 The Specific impulse $I_{SP}$ (in seconds) describes the engine
 efficiency and is parameterized for an engine by ISP at sealevel and
@@ -245,18 +248,18 @@ $9.81\frac{m}{s^2}$, but
   g_0 &\approx 9.82\frac{m}{s^2}
 \end{align}
 
-So we get a fuel consumption $\dot{m}$ (change of mass) \cite{SPI} of:
+So we get a fuel consumption $\dot{M}$ (change of mass) \cite{SPI} of:
 \begin{align}
-\dot{m} & := \frac{\absvec{\oa{F_T}}}{ISP \cdot g_0}
+\dot{M} & := \frac{\absvec{\oa{F_T}}}{ISP \cdot g_0}
 \end{align}
 
-\subsection{Jet Engines}
+\subsubsection{Jet Engines}
 
 Jet Engines are described in a nonlinear way. Details can be found in
 the ``Fuel consumption as a function of atmospheric pressure`` thread
 \cite{JetEngines}
 
-\subsection{ISP Calculation}
+\subsubsection{ISP Calculation}
 
 A ship with multiple engines that have different ISP-profiles has an
 averaged ISP that is based on the ISP of all running engines.
@@ -271,6 +274,15 @@ $F_{T_i}$ and a specific impulse of $I_{SP_i}$ has a total ISP of:
   I_{SP} := \frac{\sum_i{F_{T_i}}}{\sum_i{\frac{F_{T_i}}{I_{SP_i}}}}
 \end{align}
 
+\section{Acceleration}
+
+The rocket is subect to the three forces drag $\F{D}$, gravity $\F{G}$
+and thrust $\F{T}$.  The acceleration vector $\oa{a}$ based on these
+three forces is:
+
+\begin{align}
+  \oa{a} &:= M^{-1} \cdot(\F{D} + \F{G} + \F{T})
+\end{align}
 
 \section{Coordinate Conversion}
 
