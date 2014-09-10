@@ -1,9 +1,11 @@
 /*.pdf
 /.tagversion
-/src/*.o
-/src/kapri
+/src/cc/*.o
+/src/cc/kapri
 /*.aux
 /*.idx
 /*.log
 /*.out
 /*.toc
+/%ver%
+/test

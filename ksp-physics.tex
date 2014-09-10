@@ -20,8 +20,13 @@
 \newcommand{\Vel}{\oa{V}}
 \newcommand{\absvec}[1]{\left|\left|{#1}\right|\right|}
 \newcommand{\dddvec}[3]{\left(\begin{smallmatrix}{#1}\\{#2}\\{#3}\end{smallmatrix}\right)}
-\begin{document}
 
+\DeclareMathOperator{\atan2}{atan2}
+\DeclareMathOperator{\Lat}{Lat}
+\DeclareMathOperator{\Lon}{Lon}
+%\DeclareMathOperator{\atan}{atan}
+
+\begin{document}
 \title{Documentation of KSP Physics\\\small{Version \input{.tagversion}}\\\url{https://github.com/mhoram-kerbin/ksp-physics-documentation}}
 \author {Mhoram Kerbin \href{mailto:mhoram.kerbin@gmx.de}{\nolinkurl{mhoram.kerbin@gmx.de}}}
 
@@ -126,8 +131,8 @@ From a Position Vector $\Pos$ we can calculate latitude
 and longitude by the following formula:
 
 \begin{align}
-  Lon(\Pos) &:= atan\left(\frac{\Pos_Y}{\Pos_X}\right)\\
-  Lat(\Pos) &:= atan\left(\frac{\Pos_Z}{\sqrt{\Pos_X^2+\Pos_Y^2}}\right)
+  \Lon(\Pos) &:= \arctan\left(\frac{\Pos_Y}{\Pos_X}\right)\\
+  \Lat(\Pos) &:= \arctan\left(\frac{\Pos_Z}{\sqrt{\Pos_X^2+\Pos_Y^2}}\right)
 \end{align}
 
 \section{Surface Velocity}
@@ -142,7 +147,7 @@ We can convert orbital $\Vel$ to surface velocity $\oa{SV}$
 vectors with the following equation.
 
 \begin{align}
-  DiffV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot cos\left(Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-sin(Lon(\Pos)\\cos(Lon(\Pos))\\0\end{smallmatrix}\right)\\
+  DiffV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot \cos\left(\Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-\sin(\Lon(\Pos)\\\cos(Lon(\Pos))\\0\end{smallmatrix}\right)\\
   \oa{SV} &:= \Vel - DiffV(\Pos)
 \end{align}
 
@@ -268,6 +273,61 @@ elements \cite{Kepler}
 This section contains a description of the conversion between Kepler
 and Cartesian coordinates.
 
+\subsection{Orbit-Position Conversions}
+
+In otbital mechanics there are three aequivalent parameters that
+describe the position of an object on the orbit.
+
+\begin{itemize}
+\item True Anomaly ($\nu$) \cite{TrueA}
+\item Mean Anomaly ($M$) \cite{MeanA}
+\item Eccentric Anomaly ($E$) \cite{EccentricA}
+\end{itemize}
+
+All of them are useful for different purposes. This section deals with
+converting them.
+
+\subsubsection{Eccentric Anomaly to True Anomaly}
+
+We get the True Anomaly by the formula
+
+\begin{align}
+\tan\left(\frac{\nu}{2}\right) & = \sqrt{\frac{1+e}{1-e}} \cdot \tan\left(\frac{E}{2}\right)\nonumber\\
+\nu & = 2\cdot\atan2\left(\sqrt{1+e}\cdot \cos\left(\frac{E}{2}\right), \sqrt{1-e}\cdot \sin\left(\frac{E}{2}\right)\right)
+\end{align}
+
+\subsubsection{Eccentric Anomaly to Mean Anomaly}
+
+We get the Mean Anomaly by the formula
+
+\begin{align}
+M & = E - e\cdot \sin(E)
+\end{align}
+
+\subsubsection{Mean Anomaly to Eccentric Anomaly}
+
+TODO
+
+We first calculate the eccentric Anomaly $E$ by the formula $M = E -
+e\cdot \sin(E)$. Since this equation does not have a closed-form
+solution for $E$, we use the Newton-Raphson method \cite{NeRaMe} to
+approximate the solution.
+\begin{align}
+  \textrm{Set } Temp := \left\{
+    \begin{array}{l l}
+      \pi & \textrm{if } e > 0.8\\
+      M & \textrm{otherwise}
+    \end{array}
+  \right.
+\end{align}
+
+\subsubsection{True Anomaly to Eccentric Anomaly}
+
+\begin{align}
+  \tan(E) & = \frac{\sqrt{1-e^2}\cdot \sin(\nu)}{e+\cos(\nu)}
+\end{align}
+
+
 \subsection{Cartesian to Kepler}
 
 We can convert cartesian to kepler coordinates by the following
@@ -280,26 +340,26 @@ vector and $\oa{e}$ the eccentricity vector.
   a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{\absvec{\Vel}^2}{\mu^{(Name)}}\cdot \right)^{-1}\\
   \oa{e} &:= \frac{\Vel\times \oa{h}}{\mu^{(Name)}} - \absvec{\Pos}\nonumber\\
   e &:= \absvec{\oa{e}}\\
-  i &:= arccos\left(\frac{\oa{h}_Z}{\absvec{\oa{h}}} \right)\\
+  i &:= \arccos\left(\frac{\oa{h}_Z}{\absvec{\oa{h}}} \right)\\
   \oa{n} & := \dddvec{0}{0}{1} \times \oa{h} = \dddvec{-\oa{h}_Y}{\oa{h}_X}{0}\nonumber\\
   \Omega &:= \left\{
     \begin{array}{l l}
       0 & \textrm{if } \absvec{\oa{n}} = 0\\
-      arccos\left(\dddvec{1}{0}{0}\cdot\frac{\oa{n}}{\absvec{\oa{n}}} \right) & \textrm{if } \oa{n}_Y = \oa{h}_X >= 0\\
-      2\pi - arccos\left(\dddvec{1}{0}{0}\cdot\frac{\oa{n}}{\absvec{\oa{n}}} \right) & \textrm{otherwise}
+      \arccos\left(\dddvec{1}{0}{0}\cdot\frac{\oa{n}}{\absvec{\oa{n}}} \right) & \textrm{if } \oa{n}_Y = \oa{h}_X >= 0\\
+      2\pi - \arccos\left(\dddvec{1}{0}{0}\cdot\frac{\oa{n}}{\absvec{\oa{n}}} \right) & \textrm{otherwise}
     \end{array}
     \right.\\
   \omega & := \left\{
     \begin{array}{l l}
       0 & \textrm{if } \absvec{\oa{n}} = 0\\
-      arccos\left(\frac{\oa{n}\cdot\oa{e}}{\absvec{\oa{n}}\cdot\absvec{\oa{e}}} \right) & \textrm{if } \oa{e}_Z >= 0\\
-      2\pi - arccos\left(\frac{\oa{n}\cdot\oa{e}}{\absvec{\oa{n}}\cdot\absvec{\oa{e}}}\right) & \textrm{otherwise}
+      \arccos\left(\frac{\oa{n}\cdot\oa{e}}{\absvec{\oa{n}}\cdot\absvec{\oa{e}}} \right) & \textrm{if } \oa{e}_Z >= 0\\
+      2\pi - \arccos\left(\frac{\oa{n}\cdot\oa{e}}{\absvec{\oa{n}}\cdot\absvec{\oa{e}}}\right) & \textrm{otherwise}
     \end{array}
     \right.\\
     \nu &:= \left\{
     \begin{array}{l l}
-      arccos\left(\frac{\Pos\cdot\oa{e}}{\absvec{\Pos}\cdot\absvec{\oa{e}}}\right) & \textrm{if } \Pos\cdot\Vel >= 0\\
-      2\pi - arccos\left(\frac{\Pos\cdot\oa{e}}{\absvec{\Pos}\cdot\absvec{\oa{e}}}\right) & \textrm{otherwise}
+      \arccos\left(\frac{\Pos\cdot\oa{e}}{\absvec{\Pos}\cdot\absvec{\oa{e}}}\right) & \textrm{if } \Pos\cdot\Vel >= 0\\
+      2\pi - \arccos\left(\frac{\Pos\cdot\oa{e}}{\absvec{\Pos}\cdot\absvec{\oa{e}}}\right) & \textrm{otherwise}
     \end{array}
     \right.
 \end{align}
@@ -309,22 +369,11 @@ vector and $\oa{e}$ the eccentricity vector.
 We als can convert kepler to cartesian coordinates by the following
 equations courtesy of \cite{RSKC}.
 
-We first calculate the eccentric Anomaly $E$ by the formula $M = E -
-e\cdot sin(E)$. Since this equation does not have a closed-form
-solution for $E$, we use the Newton-Raphson method to approximate the
-solution.
-%\begin{align}
-%  \textrm{Set } Temp := \left\{
-%    \begin{array}{l l}
-%      \pi & \textrm{if } e > 0.8\\
-%      M
-%\end{align}
-
 
 
 \begin{align}
-  \absvec{\oa{o}} & := a(1-e \cdot cos(E))\\
-  \oa{o} & := \absvec{\oa{o}} \dddvec{cos(\nu)}{sin(\nu)}{0}\\
+  \absvec{\oa{o}} & := a(1-e \cdot \cos(E))\\
+  \oa{o} & := \absvec{\oa{o}} \dddvec{\cos(\nu)}{\sin(\nu)}{0}\\
   \Pos & := \dddvec{1}{2}{3} TO BE DONE
 \end{align}
 
@@ -406,6 +455,18 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \bibitem{JetEngines}
   \url{http://forum.kerbalspaceprogram.com/threads/67606-Fuel-consumption-as-a-function-of-atmospheric-pressure}
+
+\bibitem{TrueA}
+  \url{http://en.wikipedia.org/wiki/True_anomaly}
+
+\bibitem{MeanA}
+  \url{http://en.wikipedia.org/wiki/Mean_anomaly}
+
+\bibitem{EccentricA}
+  \url{http://en.wikipedia.org/wiki/Eccentric_anomaly}
+
+\bibitem{NeRaMe}
+  \url{http://en.wikipedia.org/wiki/Newton\%27s_method}
 
 \end{thebibliography}
 

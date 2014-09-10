@@ -8,4 +8,4 @@ ksp-physics.pdf: ksp-physics.tex
 	cp ksp-physics.pdf ksp-physics-$(fileversion).pdf
 
 clean:
-	rm -f *.pdf .tagversion
+	rm -f *.pdf .tagversion test %ver%
