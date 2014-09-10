@@ -2,11 +2,15 @@
 /.tagversion
 /src/cc/*.o
 /src/cc/kapri
+/*.fdb_latexmk
 /*.aux
 /*.idx
 /*.log
 /*.out
 /*.toc
+/*.fls
+/*.ilg
+/*.ind
 /%ver%
 /test
 /*~

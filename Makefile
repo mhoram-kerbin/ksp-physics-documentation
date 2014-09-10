@@ -1,10 +1,12 @@
 ksp-physics.pdf: ksp-physics.tex
 	latexmk -enable-write18 -pdf ksp-physics.tex
-	latexmk -c ksp-physics.tex
 	cp ksp-physics.pdf ksp-physics-$$(cat .tagversion | sed -e 's/[.]/-/g').pdf
 
-clean:
-	latexmk -c ksp-physics.tex
-	rm -f *.pdf .tagversion test %ver% *~
+cleanpdf:
+	rm -f *.pdf
 
-re: clean ksp-physics.pdf
+clean: cleanpdf
+	latexmk -c ksp-physics.tex
+	rm -f .tagversion test %ver% *~
+
+re: cleanpdf ksp-physics.pdf

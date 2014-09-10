@@ -36,7 +36,7 @@
 
 \begin{abstract}
 
-  This documents summarizes the stock physics of Kerbal Space Program
+  This document summarizes the stock physics of Kerbal Space Program
   \cite{KSP}. It should be valid for versions 0.21 to 0.24.2. Most
   equations are also applicable to real life situations.
 
@@ -318,7 +318,8 @@ There are several forces that induce a rotation on a ship.
 \end{itemize}
 
 At the time of this writing there is to my knowledge no
-community-based comparison of the quantities of these effects.
+community-based comparison of the quantities of these effects
+available.
 
 The best description of Torque can be found in the ``If something has
 an SAS torque of `20', what does that actually mean?'' thread
@@ -388,7 +389,7 @@ In order to start the iteration, we need some initial values.
       M & \textrm{otherwise}
     \end{array}
   \right.\nonumber\\
-  error & := temp - e\cdot\sin(temp) - M\nonumber
+  error & := target - e\cdot\sin(target) - M\nonumber
 \end{align}
 
 After that we apply the following steps \eqref{NeRaBegin} to \eqref{NeRaEnd} until $|error| < MaxError$ or
