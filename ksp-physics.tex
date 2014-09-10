@@ -36,8 +36,15 @@
 
 \begin{abstract}
 
-  This documents summarizes the physics of Kerbal Space Program
+  This documents summarizes the stock physics of Kerbal Space Program
   \cite{KSP}. It should be valid for versions 0.21 to 0.24.2.
+
+  FAR \cite{FAR} implements a completely different atmosphere and only
+  the non-atmospheric descriptions of this text can be applied to FAR.
+
+  While Principia \cite{principia} intends to change the orbital
+  mechanics completely it remains to be seen how much of the rest of
+  this text can be applied to it.
 
 \end{abstract}
 
@@ -58,7 +65,9 @@ We denote by $\Pos$, $\Vel$, $d$ and $M$ the position vector, velocity
 vector, drag coefficient and the mass of the ship respectively.
 
 $\Pos_X, \Pos_Y \textrm{ and } \Pos_Z$ denote the X, Y and Z
-components of the vector.
+components of the vector $\Pos$.
+
+The Z-Axis points from the planets core to the northpole.
 
 Distance denotes the distance to the planets center and altitude the
 distance to the surface sea level.
@@ -162,8 +171,11 @@ dimensionless.
 
 Usually it is near to $0.2$.
 
-Consider a rocket consisting of a Mk1 Cockpit, a FL-T800 Fuel Tank and
-a LV-909 Liquid Fuel Engine. For this rocket the drag coefficient is:
+Consider a rocket consisting of a Mk1 Cockpit (dry mass of 1.25 ton,
+drag coefficient of 0.1), a FL-T800 Fuel Tank (total mass of 4.5 ton,
+drag coefficient of 0.2) and a LV-909 Liquid Fuel Engine (total mass
+of 0.5 ton, drag coefficient of 0.2). For this rocket the drag
+coefficient is:
 \begin{align}
   d &= \frac{1.25 \cdot 0.1 + 4.5 \cdot 0.2 + 0.5 \cdot 0.2}{ 1.25 + 4.5 + 0.5 }\nonumber\\
   &= \frac{1.125}{6.25}\nonumber\\
@@ -262,7 +274,7 @@ $F_{T_i}$ and a specific impulse of $I_{SP_i}$ has a total ISP of:
 
 An Orbit can be described either by cartesian coordinates of a
 position vector $\Pos$ and a velocity vector $\Vel$ or by kepler
-elements \cite{Kepler}
+elements \cite{Kepler} that consist of
 
 \begin{itemize}
 \item Semimajor axis ($a$)
@@ -270,7 +282,7 @@ elements \cite{Kepler}
 \item Inclination ($i$)
 \item Longitude of the ascending node ($\Omega$)
 \item Argument of periapsis ($\omega$)
-\item True Anomaly ($\nu$)
+\item True Anomaly ($\nu$), Mean Anomaly ($M$) or Eccentric Anomaly ($E$)
 \end{itemize}
 
 This section contains a description of the conversion between Kepler
@@ -278,8 +290,8 @@ and Cartesian coordinates.
 
 \subsection{Orbit-Position Conversions}
 
-In otbital mechanics there are three aequivalent parameters that
-describe the position of an object on the orbit.
+In a Kepler Orbit there are three aequivalent parameters that describe
+the position of an object on the orbit.
 
 \begin{itemize}
 \item True Anomaly ($\nu$) \cite{TrueA}
@@ -476,6 +488,12 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \bibitem{NeRaMe}
   \url{http://en.wikipedia.org/wiki/Newton\%27s_method}
+
+\bibitem{FAR}
+  \url{http://forum.kerbalspaceprogram.com/threads/20451-Ferram-Aerospace-Research}
+
+\bibitem{principia}
+  \url{http://forum.kerbalspaceprogram.com/threads/68502-Principia-N-Body-Gravitation}
 
 \end{thebibliography}
 

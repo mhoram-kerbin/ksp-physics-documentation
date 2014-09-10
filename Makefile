@@ -5,6 +5,6 @@ ksp-physics.pdf: ksp-physics.tex
 
 clean:
 	latexmk -c ksp-physics.tex
-	rm -f *.pdf .tagversion test %ver%
+	rm -f *.pdf .tagversion test %ver% *~
 
 re: clean ksp-physics.pdf
