@@ -39,13 +39,6 @@
   This documents summarizes the stock physics of Kerbal Space Program
   \cite{KSP}. It should be valid for versions 0.21 to 0.24.2.
 
-  FAR \cite{FAR} implements a completely different atmosphere and only
-  the non-atmospheric descriptions of this text can be applied to FAR.
-
-  While Principia \cite{principia} intends to change the orbital
-  mechanics completely it remains to be seen how much of the rest of
-  this text can be applied to it.
-
 \end{abstract}
 
 \tableofcontents
@@ -58,6 +51,17 @@ KSP in C/C++. So I had to gather all the physics related information
 again after my Ascent Optimizer Perl-project \cite{PAO}. Since they
 are available at quite different places, this document is intended to
 summarize them in a single central place.
+
+\subsection{Relevance for Physics-Changing Addons}
+
+FAR \cite{FAR} and NEAR \cite{NEAR} implement a completely different
+atmosphere and only the non-atmospheric descriptions of this text can
+be applied to them.
+
+While Principia \cite{principia} intends to change the orbital
+mechanics completely it remains to be seen how much of the rest of
+this text can be applied to it.
+
 
 \section{Conventions}
 
@@ -217,7 +221,7 @@ in KSP by $A = 0.008 \frac{m^2}{kg} \cdot M$ we get
 
 \subsection{Gravity}
 
-The gravity force is directed towards the planets core and gets lower
+The gravity force $\F{G}$ is directed towards the planets core and gets lower
 with increasing distance.
 
 \begin{align}
@@ -300,15 +304,16 @@ three forces is:
   \oa{a} &:= M^{-1} \cdot(\F{D} + \F{G} + \F{T})
 \end{align}
 
-\section{Rocket Rotation}
+\section{Ship Rotation}
 
-There are several forces that apply a rotation on a rocket.
+There are several forces that induct a rotation on a ship.
 
 \begin{itemize}
 \item Torque from SAS modules and most command pods
 \item Engines that are not aligned with the center of mass
 \item Gimbal of engines
 \item Drag on rocketparts
+\item Colisions with other objects
 \end{itemize}
 
 At the time of this writing there is no community-based evaluation of
@@ -336,10 +341,10 @@ elements \cite{Kepler} that consist of
 This section contains a description of the conversion between Kepler
 and Cartesian coordinates.
 
-\subsection{Orbit-Position Conversions}
+\subsection{Orbit-Position Conversions} \label{OrbitPositionConversions}
 
-In a Kepler Orbit there are three aequivalent parameters that describe
-the position of an object on the orbit.
+For a Kepler Orbit there are three aequivalent parameters that
+describe the position of an object on the orbit.
 
 \begin{itemize}
 \item True Anomaly ($\nu$) \cite{TrueA}
@@ -423,14 +428,14 @@ Use the methods in sections \ref{ma2ea} and \ref{ea2ta}.
 \subsection{Cartesian to Kepler}
 
 We can convert cartesian to kepler coordinates by the following
-equations courtesy of \cite{RSCK}, where $\mu^{(Name)}$ denotes the
-gravitational Parameter of the planet, $\oa{h}$ the orbital momentum
-vector and $\oa{e}$ the eccentricity vector.
+equations that are explained in \cite{RSCK}, where $\mu^{(Body)}$
+denotes the gravitational Parameter of the planet, $\oa{h}$ the
+orbital momentum vector and $\oa{e}$ the eccentricity vector.
 
 \begin{align}
+  a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{\absvec{\Vel}^2}{\mu^{(Body)}}\cdot \right)^{-1}\\
   \oa{h} &:= \Pos \times \Vel\nonumber\\
-  a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{\absvec{\Vel}^2}{\mu^{(Name)}}\cdot \right)^{-1}\\
-  \oa{e} &:= \frac{\Vel\times \oa{h}}{\mu^{(Name)}} - \absvec{\Pos}\nonumber\\
+  \oa{e} &:= \frac{\Vel\times \oa{h}}{\mu^{(Body)}} - \absvec{\Pos}\nonumber\\
   e &:= \absvec{\oa{e}}\\
   i &:= \arccos\left(\frac{\oa{h}_Z}{\absvec{\oa{h}}} \right)\\
   \oa{n} & := \dddvec{0}{0}{1} \times \oa{h} = \dddvec{-\oa{h}_Y}{\oa{h}_X}{0}\nonumber\\
@@ -458,15 +463,22 @@ vector and $\oa{e}$ the eccentricity vector.
 
 \subsection{Kepler to Cartesian}
 
-We als can convert kepler to cartesian coordinates by the following
-equations courtesy of \cite{RSKC}.
+We can also convert kepler to cartesian coordinates by the following
+equations that are explained in \cite{RSKC}, where $\mu^{(Body)}$
+denotes the Gravitational Parameter of the planet.
 
+Use the formulas in section \ref{OrbitPositionConversions} to get the
+True Anomaly $\nu$ and eccentric anomaly $E$. In this calculation
+$\oa{o}$ and $\dot{\oa{o}}$ denote the position and velocity vector
+within the orbital frame of reference.
 
 
 \begin{align}
-  \absvec{\oa{o}} & := a(1-e \cdot \cos(E))\\
-  \oa{o} & := \absvec{\oa{o}} \dddvec{\cos(\nu)}{\sin(\nu)}{0}\\
-  \Pos & := \dddvec{1}{2}{3} TO BE DONE
+  \absvec{\oa{o}} & := a(1-e \cdot \cos(E))\nonumber\\
+  \oa{o} & := \absvec{\oa{o}} \dddvec{\cos(\nu)}{\sin(\nu)}{0}\nonumber\\
+  \dot{\oa{o}} & := \frac{\sqrt{\mu^{(Body)} a}}{\absvec{\oa{o}}} \dddvec{-\sin(E)}{\sqrt{1-e^2}\cos(E)}{0}\nonumber\\
+  \Pos & := \dddvec{\oa{o}_X(\cos(\omega)\cos(\Omega)-sin\omega\cos(i)\sin(\Omega)) - \oa{o}_Y(\sin(\omega)\cos(\Omega)+\cos(\omega)\cos(i)\sin(\Omega))}{\oa{o}_X(\cos(\omega)\sin(\Omega)+sin\omega\cos(i)\cos(\Omega)) - \oa{o}_Y(\cos(\omega)\cos(i)\cos(\Omega)-\sin(\omega)\sin(\Omega))}{\oa{o}_X(\sin(\omega)\sin(i))+\oa{o}_Y(cos\omega\sin(i))}\\
+  \Vel & := \dddvec{\dot{\oa{o}}_X(\cos(\omega)\cos(\Omega)-sin\omega\cos(i)\sin(\Omega)) - \dot{\oa{o}}_Y(\sin(\omega)\cos(\Omega)+\cos(\omega)\cos(i)\sin(\Omega))}{\dot{\oa{o}}_X(\cos(\omega)\sin(\Omega)+sin\omega\cos(i)\cos(\Omega)) - \dot{\oa{o}}_Y(\cos(\omega)\cos(i)\cos(\Omega)-\sin(\omega)\sin(\Omega))}{\dot{\oa{o}}_X(\sin(\omega)\sin(i))+\dot{\oa{o}}_Y(cos\omega\sin(i))}
 \end{align}
 
 
@@ -565,6 +577,9 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \bibitem{FAR}
   \url{http://forum.kerbalspaceprogram.com/threads/20451-Ferram-Aerospace-Research}
+
+\bibitem{NEAR}
+  \url{http://forum.kerbalspaceprogram.com/threads/86419-NEAR-A-Simpler-Aerodynamics-Model}
 
 \bibitem{torque}
   \url{http://forum.kerbalspaceprogram.com/threads/75916-If-something-has-an-SAS-torque-of-20-what-does-that-actually-mean}
