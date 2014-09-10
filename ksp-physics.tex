@@ -24,9 +24,11 @@
 \DeclareMathOperator{\atan2}{atan2}
 \DeclareMathOperator{\Lat}{Lat}
 \DeclareMathOperator{\Lon}{Lon}
-%\DeclareMathOperator{\atan}{atan}
+
+\immediate\write18{git describe --tags | sed -e "s/v//" -e "s/^\string\([0-9]\string\+[.][0-9]\string\+\string\)$/\string\1.0/" -e "s/-/./" -e "s/-.\string\+//" > .tagversion} % $
 
 \begin{document}
+
 \title{Documentation of KSP Physics\\\small{Version \input{.tagversion}}\\\vspace{1 em}\url{https://github.com/mhoram-kerbin/ksp-physics-documentation}}
 \author {Mhoram Kerbin \href{mailto:mhoram.kerbin@gmx.de}{\nolinkurl{mhoram.kerbin@gmx.de}}}
 
@@ -47,8 +49,8 @@ During my attempts to use PSOPT as a method for generating ideal
 ascent trajectories for rockets, I needed to implement the physics of
 KSP in C/C++. So I had to gather all the physics related information
 again after my Ascent Optimizer Perl-project \cite{PAO}. Since they
-are available at quite different places, this document should
-summarize them in a central place.
+are available at quite different places, this document is intended to
+summarize them in a single central place.
 
 \section{Conventions}
 
@@ -219,7 +221,7 @@ The ISP is linear in the pressure $p$ and cut off at $1atm$
 (citation needed).  We can calculate the ISP based on the pressure
 $p$ by
 \begin{align}
-  np(p) &:= min(1 atm, p)\\
+  np(p) &:= \min(1 atm, p)\\
   ISP(p) &:= ISP_{1atm} \cdot np(p) + ISP_{VAC} \cdot (1-np(p))
 \end{align}
 
@@ -287,6 +289,9 @@ describe the position of an object on the orbit.
 
 All of them are useful for different purposes. This section deals with
 converting them.
+
+Note that we use $M$ for both, Rocketmass and Mean Anomaly. The
+context usually indicates which of both is the intended one.
 
 \subsubsection{Eccentric Anomaly to True Anomaly}
 
