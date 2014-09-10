@@ -11,7 +11,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage[final]{listings}
-%\usepackage{makeidx}
+\usepackage{makeidx}
 \makeindex
 
 \newcommand{\oa}[1]{\overrightarrow{#1}}
@@ -66,8 +66,9 @@ this text can be applied to it.
 
 \section{Conventions}
 
-We denote by $\Pos$, $\Vel$, $d$ and $M$ the position vector, velocity
-vector, drag coefficient and the mass of the ship respectively.
+We denote by $\Pos$, $\Vel$, $d$ and $M$ the \index{Position Vector}
+position vector, \index{Velocity Vector} velocity vector, drag
+coefficient and the mass of the ship respectively.
 
 $\Pos_X, \Pos_Y \textrm{ and } \Pos_Z$ denote the X, Y and Z
 components of the vector $\Pos$.
@@ -127,9 +128,9 @@ According to the KSP Wiki for Kerbin the values are:
 Now we will show how several atmospheric parameters are calculated
 based on \cite{Atmo}.
 \begin{align}
-  \textrm{AtmosphericHeight}\nonumber\\
+  \index{Atmospheric Height} \textrm{AtmosphericHeight}\nonumber\\
   AH^{(Name)} &:= -ln\left(10^{-6}\right)\cdot PSH^{(Name)}\\
-  \textrm{Pressure at altitude }&\nonumber\\
+  \index{Pressure} \textrm{Pressure at altitude }&\nonumber\\
   p(alt) &:=
   \left\{
       \begin{array}{l l}
@@ -137,20 +138,20 @@ based on \cite{Atmo}.
         0 &\textrm{if } alt \geq AH^{(Name)}
       \end{array}
     \right.\\
-    \textrm{Density at altitude}\nonumber\\
+    \index{Density} \textrm{Density at altitude}\nonumber\\
     \rho(alt) &:= CF \cdot p(alt)
 \end{align}
 
 
 \subsection{Lift}
 
-The best description of lift can be found in the ``How to calculate
-lift?'' thread \cite{Lift}
+The best description of \index{Lift} lift can be found in the ``How to
+calculate lift?'' thread \cite{Lift}
 
 \section{Latitude and Longitude conversion}
 
-From a Position Vector $\Pos$ we can calculate latitude
-and longitude by the following formula:
+From a Position Vector $\Pos$ we can calculate \index{Latitude}
+latitude and \index{Longitude} longitude by the following formula:
 
 \begin{align}
   \Lon(\Pos) &:= \arctan\left(\frac{\Pos_Y}{\Pos_X}\right)\\
@@ -159,8 +160,8 @@ and longitude by the following formula:
 
 \section{Surface Velocity}
 
-Due to the rotation of the planet, the surface velocity is different from
-the orbital speed.
+Due to the rotation of the planet, the \index{Surface Velocity}
+surface velocity is different from the orbital speed.
 
 The difference between the two speed vectors $DiffV(\Pos)$ is the
 projected planets rotation to the position $\Pos$ of the rocket.
@@ -180,7 +181,7 @@ Drag, Gravity and Thrust. This section details them.
 
 \subsection{Drag}
 
-Drag is the force applied to rocket based on the movement through the
+\index{Drag} Drag is the force applied to rocket based on the movement through the
 atmosphere it is directed in an opposite direction to the movement.
 
 It should be notet that since the atmosphere rotates with the planet,
@@ -189,9 +190,9 @@ velocity.
 
 \subsubsection{Drag Coefficient}
 
-In KSP $d$ is the drag coefficient of the rocket. It is a mass-based
-average of the drag coefficients of all parts of the rocket and is
-dimensionless.
+In KSP $d$ is the \index{Drag Coefficient} drag coefficient of the
+rocket. It is a mass-based average of the drag coefficients of all
+parts of the rocket and is dimensionless.
 
 It indicates how much it is decellerated by means of air friction.
 
@@ -221,8 +222,8 @@ in KSP by $A = 0.008 \frac{m^2}{kg} \cdot M$ we get
 
 \subsection{Gravity}
 
-The gravity force $\F{G}$ is directed towards the planets core and gets lower
-with increasing distance.
+The \index{Gravity} gravity force $\F{G}$ is directed towards the
+planets core and gets lower with increasing distance.
 
 \begin{align}
   \mu^{(Name)} = LocalGravityParameter^{(Name)} &:= G \cdot PMass^{(Name)} \nonumber\\
@@ -234,9 +235,9 @@ with increasing distance.
 
 \subsubsection{Rocket Engines}
 
-The Specific impulse $I_{SP}$ (in seconds) describes the engine
-efficiency and is parameterized for an engine by ISP at sealevel and
-ISP in vacuum.
+The \index{ISP} Specific impulse $I_{SP}$ (in seconds) describes the
+engine efficiency and is parameterized for an engine by ISP at
+sealevel and ISP in vacuum.
 
 The ISP is linear in the pressure $p$ and cut off at $1atm$
 (citation needed).  We can calculate the ISP based on the pressure
@@ -280,8 +281,8 @@ $F_{T_i}$ and a specific impulse of $I_{SP_i}$ has a total ISP of:
 
 \subsubsection{Engine Thrust}
 
-The total ship thrust $\F{T}$ with $n$ running engines with thrusts
-$\F{T_i}$ is
+The total \index{Thrust} ship thrust $\F{T}$ with $n$ running engines
+with thrusts $\F{T_i}$ is
 
 \begin{align}
   \F{T} & := \sum_{i}\F{T_i}\label{enginethrust}
@@ -297,8 +298,8 @@ meaning that the orientation of the engines is important.
 \section{Acceleration}
 
 The rocket is subect to the three forces drag $\F{D}$, gravity $\F{G}$
-and thrust $\F{T}$.  The acceleration vector $\oa{a}$ based on these
-three forces is:
+and thrust $\F{T}$.  The \index{Acceleration} acceleration vector
+$\oa{a}$ based on these three forces is:
 
 \begin{align}
   \oa{a} &:= M^{-1} \cdot(\F{D} + \F{G} + \F{T})
@@ -309,9 +310,9 @@ three forces is:
 There are several forces that induce a rotation on a ship.
 
 \begin{itemize}
-\item Torque from SAS modules and most command pods
+\item \index{Torque} Torque from SAS modules and most command pods
 \item Engines that are not aligned with the center of mass
-\item Gimbal of engines
+\item \index{Gimbal} Gimbal of engines
 \item Drag on rocketparts
 \item Colisions with other objects
 \end{itemize}
@@ -325,16 +326,17 @@ an SAS torque of `20', what does that actually mean?'' thread
 
 \section{Coordinate Conversion}
 
-An Orbit can be described either by cartesian coordinates of a
-position vector $\Pos$ and a velocity vector $\Vel$ or by kepler
-elements \cite{Kepler} that consist of
+An \index{Orbit} Orbit can be described either by \index{Cartesian
+  Coordinates} cartesian coordinates of a position vector $\Pos$ and a
+velocity vector $\Vel$ or by \index{Kepler Orbit} kepler elements
+\cite{Kepler} that consist of
 
 \begin{itemize}
-\item Semimajor axis ($a$)
-\item Eccentricity ($e$)
-\item Inclination ($i$)
-\item Longitude of the ascending node ($\Omega$)
-\item Argument of periapsis ($\omega$)
+\item \index{Semi-major axis} Semi-major axis ($a$)
+\item \index{Eccentricity} Eccentricity ($e$)
+\item \index{Inclination} Inclination ($i$)
+\item \index{Ascending node} Longitude of the ascending node ($\Omega$)
+\item \index{Argument of periapsis} Argument of periapsis ($\omega$)
 \item True Anomaly ($\nu$), Mean Anomaly ($M$) or Eccentric Anomaly ($E$)
 \end{itemize}
 
@@ -347,9 +349,9 @@ For a Kepler Orbit there are three aequivalent parameters that
 describe the position of an object on the orbit.
 
 \begin{itemize}
-\item True Anomaly ($\nu$) \cite{TrueA}
-\item Mean Anomaly ($M$) \cite{MeanA}
-\item Eccentric Anomaly ($E$) \cite{EccentricA}
+\item \index{True Anomaly} True Anomaly ($\nu$) \cite{TrueA}
+\item \index{Mean Anomaly} Mean Anomaly ($M$) \cite{MeanA}
+\item \index{Eccentric Anomaly} Eccentric Anomaly ($E$) \cite{EccentricA}
 \end{itemize}
 
 All of them are useful for different purposes. This section deals with
@@ -430,7 +432,8 @@ Use the methods in sections \ref{ma2ea} and \ref{ea2ta}.
 We can convert cartesian to kepler coordinates by the following
 equations that are explained in \cite{RSCK}, where $\mu^{(Body)}$
 denotes the gravitational Parameter of the planet, $\oa{h}$ the
-orbital momentum vector and $\oa{e}$ the eccentricity vector.
+\index{Orbital Momentum} orbital momentum vector and $\oa{e}$ the
+eccentricity vector.
 
 \begin{align}
   a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{\absvec{\Vel}^2}{\mu^{(Body)}}\cdot \right)^{-1}\\
@@ -470,7 +473,7 @@ denotes the Gravitational Parameter of the planet.
 Use the formulas in section \ref{OrbitPositionConversions} to get the
 True Anomaly $\nu$ and eccentric anomaly $E$. In this calculation
 $\oa{o}$ and $\dot{\oa{o}}$ denote the position and velocity vector
-within the orbital frame of reference.
+within the \index{Orbital Frame of Reference} orbital frame of reference.
 
 
 \begin{align}
@@ -515,6 +518,9 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 \end{align}
 
 
+%\section{Index}
+
+\printindex
 
 \begin{thebibliography}{Kerbin}
 
