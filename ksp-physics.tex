@@ -52,7 +52,7 @@ summarize them in a central place.
 
 \section{Conventions}
 
-We denote by $\Pos$, $\Vel$, $d$ and $m$ the position vector, velocity
+We denote by $\Pos$, $\Vel$, $d$ and $M$ the position vector, velocity
 vector, drag coefficient and the mass of the ship respectively.
 
 $\Pos_X, \Pos_Y \textrm{ and } \Pos_Z$ denote the X, Y and Z
@@ -175,11 +175,11 @@ atmosphere it is directed in an opposite direction to the movement.
 
 Since it is directly proportional to the cross-sectional area $A$ of
 the rocket and this value is approximated in KSP by $A = 0.008
-\frac{m^2}{kg} \cdot m$ we get
+\frac{m^2}{kg} \cdot M$ we get
 
 \begin{align}
-  \F{D} &:= - 0.5 \cdot \rho(alt)\cdot \absvec{\oa{SV}}^2\cdot d \cdot 0.008\frac{m^2}{kg} \cdot m \cdot \frac{\oa{SV}}{\absvec{\oa{SV}}} \nonumber\\
-  &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot m \cdot \absvec{\oa{SV}} \cdot \oa{SV}
+  \F{D} &:= - 0.5 \cdot \rho(alt)\cdot \absvec{\oa{SV}}^2\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \frac{\oa{SV}}{\absvec{\oa{SV}}} \nonumber\\
+  &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{SV}} \cdot \oa{SV}
 \end{align}
 
 \section{Lift}
@@ -194,7 +194,7 @@ with increasing distance.
 \begin{align}
   \mu^{(Name)} = LocalGravityParameter^{(Name)} &:= G \cdot PMass^{(Name)} \nonumber\\
   LocalGravity(distance) &:= \frac{LocalGravityParameter}{distance^2}\nonumber\\
-  \F{G} &:= - m \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}
+  \F{G} &:= - M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}
 \end{align}
 
 \section{Acceleration}
@@ -204,7 +204,7 @@ and thrust $\F{T}$.  The acceleration vector $\oa{a}$ based on these
 three forces is:
 
 \begin{align}
-  \oa{a} &:= m^{-1} \cdot(\F{D} + \F{G} + \F{T})
+  \oa{a} &:= M^{-1} \cdot(\F{D} + \F{G} + \F{T})
 \end{align}
 
 \section{Engines}
