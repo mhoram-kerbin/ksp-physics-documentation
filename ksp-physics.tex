@@ -27,7 +27,7 @@
 %\DeclareMathOperator{\atan}{atan}
 
 \begin{document}
-\title{Documentation of KSP Physics\\\small{Version \input{.tagversion}}\\\url{https://github.com/mhoram-kerbin/ksp-physics-documentation}}
+\title{Documentation of KSP Physics\\\small{Version \input{.tagversion}}\\\vspace{1 em}\url{https://github.com/mhoram-kerbin/ksp-physics-documentation}}
 \author {Mhoram Kerbin \href{mailto:mhoram.kerbin@gmx.de}{\nolinkurl{mhoram.kerbin@gmx.de}}}
 
 \maketitle
@@ -80,8 +80,7 @@ The \index{gravitational constant} gravitational constant $G$ is according to \c
 
 \subsection{Planets}
 
-Planets are defined with respect to this problem setting by the
-following constants
+Planets are defined by the following parameters
 
 \begin{itemize}
 \item Name
@@ -93,9 +92,11 @@ following constants
 \item \index{Spehre of Influence} Radius of Spehre of Influence $Soi^{(Name)}$ in m
 \end{itemize}
 
+The KSP Wiki \cite{Wiki} contains information about each celestial body.
+
 \subsubsection{Kerbin}
 
-This information is based on \cite{Kerbin}.
+According to the KSP Wiki for Kerbin the values are:
 
 \begin{align*}
   PMass^{(Kerbin)} &:= 5.2915793E22 kg\\
@@ -147,7 +148,7 @@ We can convert orbital $\Vel$ to surface velocity $\oa{SV}$
 vectors with the following equation.
 
 \begin{align}
-  DiffV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot \cos\left(\Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-\sin(\Lon(\Pos)\\\cos(Lon(\Pos))\\0\end{smallmatrix}\right)\\
+  DiffV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot \cos\left(\Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-\sin(\Lon(\Pos)\\\cos(\Lon(\Pos))\\0\end{smallmatrix}\right)\\
   \oa{SV} &:= \Vel - DiffV(\Pos)
 \end{align}
 
@@ -425,6 +426,9 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \bibitem{ACB}
   \url{http://wiki.kerbalspaceprogram.com/wiki/API:CelestialBody}
+
+\bibitem{Wiki}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Main_Page}
 
 \bibitem{Kerbin}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Kerbin}
