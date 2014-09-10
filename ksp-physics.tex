@@ -37,7 +37,8 @@
 \begin{abstract}
 
   This documents summarizes the stock physics of Kerbal Space Program
-  \cite{KSP}. It should be valid for versions 0.21 to 0.24.2.
+  \cite{KSP}. It should be valid for versions 0.21 to 0.24.2. Most
+  equations are also applicable to real life situations.
 
 \end{abstract}
 
@@ -78,7 +79,6 @@ distance to the surface sea level.
 
 \section{Physical Constants}
 
-
 \subsection{Global Constants}
 
 The \index{conversion factor} conversion factor between pressure and
@@ -102,7 +102,7 @@ Planets are defined by the following parameters
 \item \index{Mass of Planet} Mass of Planet $PMass^{(Name)}$ in kg
 \item \index{Planetary Radius} Planetary Radius $PRadius^{(Name)}$ in m
 \item \index{Scale Height} Scale Height $PSH^{(Name)}$ in m
-\item \index{Density at Sealevel} Density at Sealevel $p_0^{(Name)}$ in atm
+\item \index{Pressure at Sealevel} Pressure at Sealevel $p_0^{(Name)}$ in atm
 \item \index{Rotation Period} Rotation Period $RP^{(Name)}$ in s
 \item \index{Spehre of Influence} Radius of Spehre of Influence $Soi^{(Name)}$ in m
 \end{itemize}
@@ -166,11 +166,11 @@ The difference between the two speed vectors $DiffV(\Pos)$ is the
 projected planets rotation to the position $\Pos$ of the rocket.
 
 We can convert orbital $\Vel$ to surface velocity $\oa{SV}$
-vectors with the following equation.
+vectors with the following equation if we know the position $\Pos$.
 
 \begin{align}
-  DiffV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot \cos\left(\Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-\sin(\Lon(\Pos)\\\cos(\Lon(\Pos))\\0\end{smallmatrix}\right)\\
-  \oa{SV} &:= \Vel - DiffV(\Pos)
+  DiffV(\Pos) &:= \absvec{\Pos} \cdot \frac{2 \pi}{RP^{(Name)}} \cdot \cos\left(\Lat\left(\Pos\right)\right)\cdot\left(\begin{smallmatrix}-\sin(\Lon(\Pos)\\\cos(\Lon(\Pos))\\0\end{smallmatrix}\right)\nonumber\\
+  \oa{SV} &= \Vel - DiffV(\Pos)
 \end{align}
 
 \section{Forces}
@@ -288,8 +288,8 @@ $\F{T_i}$ is
 \end{align}
 
 This equation assumes that the engines do not induce a rotation onto
-the rocket. If this is the case then the total thrust is lower than
-calculated in \eqref{enginethrust}.
+the rocket. If this is however the case then the total thrust is lower
+than calculated in \eqref{enginethrust}.
 
 It should also be noted that this equation is a vectoraddition,
 meaning that the orientation of the engines is important.
@@ -306,7 +306,7 @@ three forces is:
 
 \section{Ship Rotation}
 
-There are several forces that induct a rotation on a ship.
+There are several forces that induce a rotation on a ship.
 
 \begin{itemize}
 \item Torque from SAS modules and most command pods
@@ -316,11 +316,11 @@ There are several forces that induct a rotation on a ship.
 \item Colisions with other objects
 \end{itemize}
 
-At the time of this writing there is no community-based evaluation of
-the quantities of these effects.
+At the time of this writing there is to my knowledge no
+community-based comparison of the quantities of these effects.
 
 The best description of Torque can be found in the ``If something has
-an SAS torque of "20", what does that actually mean?'' thread
+an SAS torque of `20', what does that actually mean?'' thread
 \cite{torque}.
 
 \section{Coordinate Conversion}
