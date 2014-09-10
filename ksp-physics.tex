@@ -274,6 +274,22 @@ $F_{T_i}$ and a specific impulse of $I_{SP_i}$ has a total ISP of:
   I_{SP} := \frac{\sum_i{F_{T_i}}}{\sum_i{\frac{F_{T_i}}{I_{SP_i}}}}
 \end{align}
 
+\subsubsection{Engine Thrust}
+
+The total ship thrust $\F{T}$ with $n$ running engines with thrusts
+$\F{T_i}$ is
+
+\begin{align}
+  \F{T} & := \sum_{i}\F{T_i}\label{enginethrust}
+\end{align}
+
+This equation assumes that the engines do not induce a rotation onto
+the rocket. If this is the case then the total thrust is lower than
+calculated in \eqref{enginethrust}.
+
+It should also be noted that this equation is a vectoraddition,
+meaning that the orientation of the engines is important.
+
 \section{Acceleration}
 
 The rocket is subect to the three forces drag $\F{D}$, gravity $\F{G}$
@@ -283,6 +299,24 @@ three forces is:
 \begin{align}
   \oa{a} &:= M^{-1} \cdot(\F{D} + \F{G} + \F{T})
 \end{align}
+
+\section{Rocket Rotation}
+
+There are several forces that apply a rotation on a rocket.
+
+\begin{itemize}
+\item Torque from SAS modules and most command pods
+\item Engines that are not aligned with the center of mass
+\item Gimbal of engines
+\item Drag on rocketparts
+\end{itemize}
+
+At the time of this writing there is no community-based evaluation of
+the quantities of these effects.
+
+The best description of Torque can be found in the ``If something has
+an SAS torque of "20", what does that actually mean?'' thread
+\cite{torque}.
 
 \section{Coordinate Conversion}
 
@@ -505,6 +539,9 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \bibitem{FAR}
   \url{http://forum.kerbalspaceprogram.com/threads/20451-Ferram-Aerospace-Research}
+
+\bibitem{torque}
+  \url{http://forum.kerbalspaceprogram.com/threads/75916-If-something-has-an-SAS-torque-of-20-what-does-that-actually-mean}
 
 \bibitem{principia}
   \url{http://forum.kerbalspaceprogram.com/threads/68502-Principia-N-Body-Gravitation}
