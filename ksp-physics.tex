@@ -353,46 +353,72 @@ converting them.
 Note that we use $M$ for both, Rocketmass and Mean Anomaly. The
 context usually indicates which of both is the intended one.
 
-\subsubsection{Eccentric Anomaly to True Anomaly}
+There are other equivalent parameterizations possible, like for
+example time since Periapsis.
+
+\subsubsection{True Anomaly to Eccentric Anomaly} \label{ta2ea}
+
+The Eccentric Anomaly $E$ can be calculated from the True Anomaly $\nu$
+and Eccentricity $e$ by the formula
+\begin{align}
+  \tan(E) & = \frac{\sqrt{1-e^2}\cdot \sin(\nu)}{e+\cos(\nu)}\nonumber\\
+  E & = \atan2\left(\sqrt{1-e^2}\cdot \sin(\nu), e+\cos(\nu)\right)
+\end{align}
+
+\subsubsection{Mean Anomaly to Eccentric Anomaly} \label{ma2ea}
+
+We calculate the eccentric Anomaly $E$ by the formula $M = E - e\cdot
+\sin(E)$. Since this equation does not have a closed-form solution for
+$E$, we use the Newton-Raphson method \cite{NeRaMe} to approximate the
+solution.
+
+In order to start the iteration, we need some initial values.
+\begin{align}
+  MaxError & := 10^{-13}\nonumber\\
+  target & := \left\{
+    \begin{array}{l l}
+      \pi & \textrm{if } e > 0.8\\
+      M & \textrm{otherwise}
+    \end{array}
+  \right.\nonumber\\
+  error & := temp - e\cdot\sin(temp) - M\nonumber
+\end{align}
+
+After that we apply the following steps \eqref{NeRaBegin} to \eqref{NeRaEnd} until $|error| < MaxError$ or
+the procedure has found no solution within a specified number of runs.
+\begin{align}
+  prev & := target\label{NeRaBegin}\\
+  target & := prev - \frac{error}{1 - e\cdot \cos(prev)}\\
+  error & := target - e \cdot\sin(target) - M\label{NeRaEnd}
+\end{align}
+
+The resulting Eccentric anomaly is $E := target$.
+
+\subsubsection{Eccentric Anomaly to True Anomaly} \label{ea2ta}
 
 We get the True Anomaly by the formula
 
 \begin{align}
 \tan\left(\frac{\nu}{2}\right) & = \sqrt{\frac{1+e}{1-e}} \cdot \tan\left(\frac{E}{2}\right)\nonumber\\
-\nu & = 2\cdot\atan2\left(\sqrt{1+e}\cdot \cos\left(\frac{E}{2}\right), \sqrt{1-e}\cdot \sin\left(\frac{E}{2}\right)\right)
+\nu & = 2\cdot\atan2\left(\sqrt{1+e}\cdot \sin\left(\frac{E}{2}\right), \sqrt{1-e}\cdot \cos\left(\frac{E}{2}\right)\right)
 \end{align}
 
-\subsubsection{Eccentric Anomaly to Mean Anomaly}
+\subsubsection{Eccentric Anomaly to Mean Anomaly} \label{ea2ma}
 
-We get the Mean Anomaly by the formula
+We get the Mean Anomaly from the Eccentric Anomaly and the
+Eccentricity by the formula
 
 \begin{align}
 M & = E - e\cdot \sin(E)
 \end{align}
 
-\subsubsection{Mean Anomaly to Eccentric Anomaly}
+\subsubsection{True Anomaly to Mean Anomaly}
 
-TODO
+Use the methods in sections \ref{ta2ea} and \ref{ea2ma}.
 
-We first calculate the eccentric Anomaly $E$ by the formula $M = E -
-e\cdot \sin(E)$. Since this equation does not have a closed-form
-solution for $E$, we use the Newton-Raphson method \cite{NeRaMe} to
-approximate the solution.
-\begin{align}
-  \textrm{Set } Temp := \left\{
-    \begin{array}{l l}
-      \pi & \textrm{if } e > 0.8\\
-      M & \textrm{otherwise}
-    \end{array}
-  \right.
-\end{align}
+\subsubsection{Mean Anomaly to True Anomaly}
 
-\subsubsection{True Anomaly to Eccentric Anomaly}
-
-\begin{align}
-  \tan(E) & = \frac{\sqrt{1-e^2}\cdot \sin(\nu)}{e+\cos(\nu)}
-\end{align}
-
+Use the methods in sections \ref{ma2ea} and \ref{ea2ta}.
 
 \subsection{Cartesian to Kepler}
 
