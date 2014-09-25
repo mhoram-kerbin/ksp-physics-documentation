@@ -508,21 +508,23 @@ within the \index{Orbital Frame of Reference} orbital frame of reference.
 
 \chapter{Orbital Mechanics}
 
-We can calculate the \index{Apoapsis} apoapsis $Apo$ and
-\index{Periapsis} periapsis $Peri$ (in the meaning distance to the
+\section{Orbital Calculations}
+
+We can calculate the \index{Apoapsis} apoapsis $r_A$ and
+\index{Periapsis} periapsis $r_P$ (in the meaning distance to the
 Planets center) as
 
 \begin{align}
-Apo & := a \cdot (1 + e)\\
-Peri & := a \cdot (1 - e)
+r_A & := a \cdot (1 + e)\\
+r_P & := a \cdot (1 - e)
 \end{align}
 
 Conversely we can calculate the eccentricity and semi-major as
 
 \begin{align}
-  a & := \frac{1}{2}\cdot(Apo + Peri)\\
-  e & := \frac{Apo}{a} - 1\\
-  e & := 1 - \frac{Peri}{a}
+  a & := \frac{1}{2}\cdot(r_A + r_P)\\
+  e & := \frac{r_A}{a} - 1\\
+  e & := 1 - \frac{r_P}{a}
 \end{align}
 
 The velocity $V$ of an object at that orbits a Body and has a distance
@@ -538,7 +540,7 @@ and minimum at Apoapsis and that the disctance $r$ lies within the
 bounds
 
 $$
-Peri \leq r \leq Apo
+r_P \leq r \leq r_A
 $$
 
 In the case of a circular orbit, the speed is equal at all points on
