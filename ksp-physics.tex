@@ -119,7 +119,8 @@ Planets are defined by the following parameters
 \item \index{Scale Height} Scale Height $PSH^{(Name)}$ in m
 \item \index{Pressure at Sealevel} Pressure at Sealevel $p_0^{(Name)}$ in atm
 \item \index{Rotation Period} Rotation Period $RP^{(Name)}$ in s
-\item \index{Spehre of Influence} Radius of Spehre of Influence $Soi^{(Name)}$ in m
+\item \index{Spehre of Influence} Radius of Spehre of Influence $Soi^{(Name)}$ in m \footnote{It should be noted that the Spehre of Influence is actually calculated
+as described in \cite{SphereOfInfluence}.}
 \end{itemize}
 
 The KSP Wiki \cite{Wiki} contains information about each celestial body.
@@ -143,7 +144,7 @@ Now we will show how several atmospheric parameters are calculated
 based on \cite{Atmo}.
 \begin{align}
   \index{Atmospheric Height} \textrm{AtmosphericHeight}\nonumber\\
-  AH^{(Name)} &:= -ln\left(10^{-6}\right)\cdot PSH^{(Name)}\\
+  AH^{(Name)} &:= -ln\left(10^{-6}\right)\cdot PSH^{(Name)}\label{AtmosphericHeightEquation}\\
   \index{Pressure} \textrm{Pressure at altitude }&\nonumber\\
   p(alt) &:=
   \left\{
@@ -577,6 +578,39 @@ This time $T_d$ can be calculated as described in \cite{DarknessTime}.
 In the real world the atmosphere does not stop suddenly at an
 altitude.
 
+In KSP every Planetary Body with an atmosphere has an altitude above
+of which there is no atmosphere and this altitude can be calculated as
+described in equation \ref{AtmosphericHeightEquation}.
+
+\section{Drag}
+
+In the real world Drag is directly proportional to the cross-sectional
+area $A$ of the ship.  In KSP this value is approximated by the ships
+mass $M$ as described in section \ref{DragForce}.
+
+With the Add-Ons FAR \cite{FAR} and NEAR \cite{NEAR} an effort is made
+to implement a more realistic atmosphere into KSP.
+
+\section{Gravitation Model}
+
+In the real world every Planetary Body exercised gravitation to all
+other bodies.  In KSP a simplified model is used that is based on
+Patched Conics \cite{PatchedConics}.
+
+This simplification states that the space is divided into areas where
+only the gravitation of a single planetary body is in effect.  These
+areas are mostly spheric and their radius is called ``Sphere of
+Influence''.  This Radius can be calculated according to the formula
+in \cite{SphereOfInfluence}.
+
+The Add-On Principia \cite{principia} (currently under development)
+intends to implement a more realistic N-Body-Physics.
+
+\section{Engine Thrust}
+
+In the real world Rockete-engines do not have a constant thrust.
+% TODO
+
 %\section{Index}
 \printindex
 
@@ -662,6 +696,12 @@ altitude.
 
 \bibitem{DarknessTime}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Orbit_darkness_time}
+
+\bibitem{PatchedConics}
+  \url{http://en.wikipedia.org/wiki/Patched_conic_approximation}
+
+\bibitem{SphereOfInfluence}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Sphere_of_influence}
 
 \end{thebibliography}
 \end{document}
