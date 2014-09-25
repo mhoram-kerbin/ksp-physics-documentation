@@ -183,6 +183,10 @@ latitude and \index{Longitude} longitude by the following formula:
   \Lat(\Pos) &:= \arctan\left(\frac{\Pos_Z}{\sqrt{\Pos_X^2+\Pos_Y^2}}\right)
 \end{align}
 
+{\bf Be advised that this happens to be only true if the inertial X is
+  aligned with body X at t = 0. That's not the case for most KSP
+  planets and moons.} \cite{LatLongNote}
+
 \section{Surface Velocity}
 
 Due to the rotation of the planet, the \index{Surface Velocity}
@@ -724,6 +728,9 @@ In the real world Rockete-engines do not have a constant thrust.
 
 \bibitem{RealDensity}
   \url{http://en.wikipedia.org/wiki/Density_of_air}
+
+\bibitem{LatLongNote}
+\url{http://forum.kerbalspaceprogram.com/threads/18230?p=1433324#post1433324}
 
 \end{thebibliography}
 \end{document}
