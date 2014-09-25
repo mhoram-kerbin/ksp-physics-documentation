@@ -63,7 +63,9 @@ summarize them in a single central place.
 
 Part \ref{InnerWorkings} describes how the Physics Engine of KSP
 works. Part \ref{InGamePhysics} describes how some in game physical
-effects can be calculated.
+effects can be calculated. Appendix \ref{RealWorldDifferences}
+contains a desription of the differences between the real world and
+KSP-Physics.
 
 \section{Relevance for Physics-Changing Addons}
 
@@ -122,7 +124,7 @@ Planets are defined by the following parameters
 \item \index{Scale Height} Scale Height $PSH^{(Name)}$ in m
 \item \index{Pressure at Sealevel} Pressure at Sealevel $p_0^{(Name)}$ in atm
 \item \index{Rotation Period} Rotation Period $RP^{(Name)}$ in s
-\item \index{Spehre of Influence} Radius of Spehre of Influence $Soi^{(Name)}$ in m \footnote{It should be noted that the Spehre of Influence is actually calculated
+\item \index{Sphere of Influence} Radius of Sphere of Influence $Soi^{(Name)}$ in m \footnote{It should be noted that the Sphere of Influence is actually calculated
 as described in \cite{SphereOfInfluence}.}
 \end{itemize}
 
@@ -580,16 +582,19 @@ described in \cite{DarknessTime}.
 
 \part{Appendices}
 
-\chapter{Differences to the real world}
+\chapter{Differences to the real world}\label{RealWorldDifferences}
 
 \section{Atmosphere}
 
 In the real world the atmosphere does not stop suddenly at an
-altitude.
+altitude.\index{Atmospheric Height}
 
 In KSP every Planetary Body with an atmosphere has an altitude above
 of which there is no atmosphere and this altitude can be calculated as
 described in equation \ref{AtmosphericHeightEquation}.
+
+The density of the atmosphere also depends on the temperature and
+humidity \cite{RealDensity} but KSP does not model these.
 
 \section{Drag}
 
@@ -600,20 +605,25 @@ mass $M$ as described in section \ref{DragForce}.
 With the Add-Ons FAR \cite{FAR} and NEAR \cite{NEAR} an effort is made
 to implement a more realistic atmosphere into KSP.
 
-\section{Gravitation Model}
+\section{Gravitational Model}
 
 In the real world every Planetary Body exercises gravitation to all
 other bodies.  In KSP a simplified model is used that is based on
-Patched Conics \cite{PatchedConics}.
+Patched Conics \index{Patched Conics} \cite{PatchedConics}.
 
 This simplification states that the space is divided into areas where
 only the gravitation of a single planetary body is in effect.  These
-areas are mostly spheric and their radius is called ``Sphere of
-Influence''.  This Radius can be calculated according to the formula
-in \cite{SphereOfInfluence}.
+areas are mostly spheric, have the same center as the planetary body
+and they can contain other such areas, if the planetary body has other
+planetary bodies orbiting it.
+
+The name ``Sphere of Influence'' \index{Sphere of Influence} can refer
+either to the area itself or to it's radius. This radius can be
+calculated according to the formula in \cite{SphereOfInfluence}.
 
 The Add-On Principia \cite{principia} (currently under development)
-intends to implement a more realistic N-Body-Physics.
+intends to implement a more realistic
+N-Body-Physics. \index{N-Body-Physics}
 
 \section{Engine Thrust}
 
@@ -711,6 +721,9 @@ In the real world Rockete-engines do not have a constant thrust.
 
 \bibitem{SphereOfInfluence}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Sphere_of_influence}
+
+\bibitem{RealDensity}
+  \url{http://en.wikipedia.org/wiki/Density_of_air}
 
 \end{thebibliography}
 \end{document}
