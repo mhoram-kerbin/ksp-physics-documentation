@@ -183,8 +183,9 @@ Drag, Gravity and Thrust. This section details them.
 
 \subsection{Drag}
 
-\index{Drag} Drag is the force applied to rocket based on the movement through the
-atmosphere it is directed in an opposite direction to the movement.
+\index{Drag} Drag is the force applied to rocket based on the movement
+through the atmosphere and it is directed in an opposite direction to
+the movement.
 
 It should be notet that since the atmosphere rotates with the planet,
 the surface velocity is the relevant velocity and not the orbital
@@ -331,7 +332,7 @@ an SAS torque of `20', what does that actually mean?'' thread
 
 An \index{Orbit} Orbit can be described either by \index{Cartesian
   Coordinates} cartesian coordinates of a position vector $\Pos$ and a
-velocity vector $\Vel$ or by \index{Kepler Orbit} kepler elements
+velocity vector $\Vel$ or by \index{Kepler Orbit} Kepler Elements
 \cite{Kepler} that consist of
 
 \begin{itemize}
@@ -342,6 +343,10 @@ velocity vector $\Vel$ or by \index{Kepler Orbit} kepler elements
 \item \index{Argument of periapsis} Argument of periapsis ($\omega$)
 \item True Anomaly ($\nu$), Mean Anomaly ($M$) or Eccentric Anomaly ($E$)
 \end{itemize}
+
+In KSP, Kepler Elements are used for objects that are on rails and
+Cartesian Coordinates for the ship you currently steer and others in
+its vicinity.
 
 This section contains a description of the conversion between Kepler
 and Cartesian coordinates.
@@ -474,7 +479,7 @@ equations that are explained in \cite{RSKC}, where $\mu^{(Body)}$
 denotes the Gravitational Parameter of the planet.
 
 Use the formulas in section \ref{OrbitPositionConversions} to get the
-True Anomaly $\nu$ and eccentric anomaly $E$. In this calculation
+True Anomaly $\nu$ and Eccentric Anomaly $E$. In this calculation
 $\oa{o}$ and $\dot{\oa{o}}$ denote the position and velocity vector
 within the \index{Orbital Frame of Reference} orbital frame of reference.
 
