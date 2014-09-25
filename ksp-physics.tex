@@ -41,7 +41,8 @@
 
   This document summarizes the stock physics of Kerbal Space Program
   \cite{KSP}. It should be valid for versions 0.21 to 0.24.2. Most
-  equations are also applicable to real life situations.
+  equations are also applicable to real life situations - if you ever
+  happen to stumble into one.
 
 \end{abstract}
 
@@ -90,7 +91,9 @@ The Z-Axis points from the planets core to the northpole.
 Distance denotes the distance to the planets center and altitude the
 distance to the surface sea level.
 
-For Vector-Operations $\oa{A} \cdot \oa{B}$ denotes the scalar product \cite{ScalarProduct} and $\oa{A} \times \oa{B}$ denotes the cross product \cite{CrossProduct}.
+For Vector-Operations $\oa{A} \cdot \oa{B}$ denotes the scalar product
+\cite{ScalarProduct} and $\oa{A} \times \oa{B}$ denotes the cross
+product \cite{CrossProduct}.
 
 \chapter{Physical Constants}
 
@@ -123,7 +126,8 @@ Planets are defined by the following parameters
 as described in \cite{SphereOfInfluence}.}
 \end{itemize}
 
-The KSP Wiki \cite{Wiki} contains information about each celestial body.
+The KSP Wiki \cite{Wiki} contains information about each celestial
+body.
 
 \subsection{Kerbin}
 
@@ -139,6 +143,8 @@ According to the KSP Wiki for Kerbin the values are:
 \end{align*}
 
 \chapter{Atmosphere}
+
+\section{Atmospheric Formula}
 
 Now we will show how several atmospheric parameters are calculated
 based on \cite{Atmo}.
@@ -163,7 +169,9 @@ based on \cite{Atmo}.
 The best description of \index{Lift} lift can be found in the ``How to
 calculate lift?'' thread \cite{Lift}
 
-\chapter{Latitude and Longitude conversion}
+\chapter {Surface}
+
+\section{Latitude and Longitude conversion}
 
 From a Position Vector $\Pos$ we can calculate \index{Latitude}
 latitude and \index{Longitude} longitude by the following formula:
@@ -173,7 +181,7 @@ latitude and \index{Longitude} longitude by the following formula:
   \Lat(\Pos) &:= \arctan\left(\frac{\Pos_Z}{\sqrt{\Pos_X^2+\Pos_Y^2}}\right)
 \end{align}
 
-\chapter{Surface Velocity}
+\section{Surface Velocity}
 
 Due to the rotation of the planet, the \index{Surface Velocity}
 surface velocity is different from the orbital speed.
@@ -225,7 +233,7 @@ coefficient is:
   &= 0.18\nonumber
 \end{align}
 
-\subsection{Drag Force}
+\subsection{Drag Force}\label{DragForce}
 
 Since the drag force $\F{D}$ is directly proportional to the
 cross-sectional area $A$ of the rocket and this value is approximated
@@ -528,7 +536,7 @@ Conversely we can calculate the eccentricity and semi-major as
   e & := 1 - \frac{r_P}{a}
 \end{align}
 
-The velocity $V$ of an object at that orbits a Body and has a distance
+The velocity $V$ of an object that orbits a Body and has a distance
 $r$ to the Planets center is according to the Vis-viva equation
 \cite{VisViva}
 
@@ -560,7 +568,8 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 A ship orbiting a Body will spend some time in the shadow of the
 body. \index{Orbital Darknes Time}
 
-This time $T_d$ can be calculated as described in \cite{DarknessTime}.
+The maximal possible time $T_d$ in darkness can be calculated as
+described in \cite{DarknessTime}.
 
 \begin{align}
   b & := \sqrt{r_A \cdot r_P} \textrm{ the semi-minor axis}\index{Semi-minor axis}\\
@@ -593,7 +602,7 @@ to implement a more realistic atmosphere into KSP.
 
 \section{Gravitation Model}
 
-In the real world every Planetary Body exercised gravitation to all
+In the real world every Planetary Body exercises gravitation to all
 other bodies.  In KSP a simplified model is used that is based on
 Patched Conics \cite{PatchedConics}.
 
