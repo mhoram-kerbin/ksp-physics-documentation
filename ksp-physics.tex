@@ -496,7 +496,8 @@ within the \index{Orbital Frame of Reference} orbital frame of reference.
 \section{Orbital Mechanics}
 
 We can calculate the \index{Apoapsis} apoapsis $Apo$ and
-\index{Periapsis} periapsis $Peri$ as
+\index{Periapsis} periapsis $Peri$ (in the meaning distance to the
+Planets center) as
 
 \begin{align}
 Apo & := a \cdot (1 + e)\\
@@ -511,14 +512,23 @@ Conversely we can calculate the eccentricity and semi-major as
   e & := 1 - \frac{Peri}{a}
 \end{align}
 
-The speed of an object that orbits a Body at both Apsides is
+The velocity $V$ of an object at that orbits a Body and has a distance
+$r$ to the Planets center is according to \cite{OrbitVelocity}
 
 \begin{align}
-V_{Apo} & := \sqrt{\mu^{(Body)} \cdot \left(\frac{2}{Apo} - \frac{1}{a}\right)}\\
-V_{Peri} & := \sqrt{\mu^{(Body)} \cdot\left(\frac{2}{Peri} - \frac{1}{a}\right)}
+V & := \sqrt{\mu^{(Body)} \cdot \left(\frac{2}{r} - \frac{1}{a}\right)}
 \end{align}
 
-In the case of a circular orbit, they are equal.
+It should be noted that the speed reaches it's maximum at Periapsis
+and minimum at Apoapsis and that the disctance $r$ lies within the
+bounds
+
+$$
+Peri \leq r \leq Apo
+$$
+
+In the case of a circular orbit, the speed is equal at all points on
+the orbit.
 
 The \index{Orbital Period} orbital period (with the meaning of
 \index{Siderial Period} sidereal period \cite{SIDPER}) around a Body
@@ -609,6 +619,9 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \bibitem{CrossProduct}
   \url{http://en.wikipedia.org/wiki/Cross_product}
+
+\bibitem{OrbitVelocity}
+  \url{http://en.wikipedia.org/wiki/Orbital_mechanics#Velocity}
 
 \end{thebibliography}
 
