@@ -1,7 +1,7 @@
 % KSP Physics Documentation by Mhoram
 % This work is licensed under the Creative Commons
 % Attribution-NonCommercial-ShareAlike 4.0 International License.
-\documentclass[11pt]{article}
+\documentclass[11pt]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper]{geometry}
@@ -13,6 +13,7 @@
 \usepackage[final]{listings}
 \usepackage{makeidx}
 \makeindex
+\usepackage[nottoc]{tocbibind}
 
 \newcommand{\oa}[1]{\overrightarrow{#1}}
 \newcommand{\F}[1]{\oa{F_{#1}}}
@@ -26,6 +27,8 @@
 \DeclareMathOperator{\Lon}{Lon}
 
 \immediate\write18{git describe --tags | sed -e "s/v//" -e "s/^\string\([0-9]\string\+[.][0-9]\string\+\string\)$/\string\1.0/" -e "s/-/./" -e "s/-.\string\+//" > .tagversion} % $
+
+\setcounter{chapter}{-1}
 
 \begin{document}
 
@@ -44,6 +47,8 @@
 
 \tableofcontents
 
+\chapter{Preface}
+
 \section{Introduction}
 
 During my attempts to use PSOPT as a method for generating ideal
@@ -53,7 +58,13 @@ again after my Ascent Optimizer Perl-project \cite{PAO}. Since they
 are available at quite different places, this document is intended to
 summarize them in a single central place.
 
-\subsection{Relevance for Physics-Changing Addons}
+\section{Document Structure}
+
+Part \ref{InnerWorkings} describes how the Physics Engine of KSP
+works. Part \ref{InGamePhysics} describes how some in game physical
+effects can be calculated.
+
+\section{Relevance for Physics-Changing Addons}
 
 FAR \cite{FAR} and NEAR \cite{NEAR} implement a completely different
 atmosphere and only the non-atmospheric descriptions of this text can
@@ -63,8 +74,9 @@ While Principia \cite{principia} intends to change the orbital
 mechanics completely it remains to be seen how much of the rest of
 this text can be applied to it.
 
+\part{Inner Workings of KSP}\label{InnerWorkings}
 
-\section{Conventions}
+\chapter{Conventions}
 
 We denote by $\Pos$, $\Vel$, $d$ and $M$ the \index{Position Vector}
 position vector, \index{Velocity Vector} velocity vector, drag
@@ -80,9 +92,9 @@ distance to the surface sea level.
 
 For Vector-Operations $\oa{A} \cdot \oa{B}$ denotes the scalar product \cite{ScalarProduct} and $\oa{A} \times \oa{B}$ denotes the cross product \cite{CrossProduct}.
 
-\section{Physical Constants}
+\chapter{Physical Constants}
 
-\subsection{Global Constants}
+\section{Global Constants}
 
 The \index{conversion factor} conversion factor between pressure and
 density is according to \cite{Atmo}.
@@ -96,7 +108,7 @@ The \index{gravitational constant} gravitational constant $G$ is according to \c
   G &:= 6.674E-11 N\left(\frac{m}{kg}\right)^2
 \end{align}
 
-\subsection{Planets}
+\section{Planets}
 
 Planets are defined by the following parameters
 
@@ -112,7 +124,7 @@ Planets are defined by the following parameters
 
 The KSP Wiki \cite{Wiki} contains information about each celestial body.
 
-\subsubsection{Kerbin}
+\subsection{Kerbin}
 
 According to the KSP Wiki for Kerbin the values are:
 
@@ -125,7 +137,7 @@ According to the KSP Wiki for Kerbin the values are:
   Soi^{(Kerbin)} &:= 84159286 m\\
 \end{align*}
 
-\section{Atmosphere}
+\chapter{Atmosphere}
 
 Now we will show how several atmospheric parameters are calculated
 based on \cite{Atmo}.
@@ -145,12 +157,12 @@ based on \cite{Atmo}.
 \end{align}
 
 
-\subsection{Lift}
+\section{Lift}
 
 The best description of \index{Lift} lift can be found in the ``How to
 calculate lift?'' thread \cite{Lift}
 
-\section{Latitude and Longitude conversion}
+\chapter{Latitude and Longitude conversion}
 
 From a Position Vector $\Pos$ we can calculate \index{Latitude}
 latitude and \index{Longitude} longitude by the following formula:
@@ -160,7 +172,7 @@ latitude and \index{Longitude} longitude by the following formula:
   \Lat(\Pos) &:= \arctan\left(\frac{\Pos_Z}{\sqrt{\Pos_X^2+\Pos_Y^2}}\right)
 \end{align}
 
-\section{Surface Velocity}
+\chapter{Surface Velocity}
 
 Due to the rotation of the planet, the \index{Surface Velocity}
 surface velocity is different from the orbital speed.
@@ -176,12 +188,12 @@ vectors with the following equation if we know the position $\Pos$.
   \oa{SV} &= \Vel - DiffV(\Pos)
 \end{align}
 
-\section{Forces}
+\chapter{Forces}
 
 There are three forces that effect the flightpath of a rocket, namely
 Drag, Gravity and Thrust. This section details them.
 
-\subsection{Drag}
+\section{Drag}
 
 \index{Drag} Drag is the force applied to rocket based on the movement
 through the atmosphere and it is directed in an opposite direction to
@@ -191,7 +203,7 @@ It should be notet that since the atmosphere rotates with the planet,
 the surface velocity is the relevant velocity and not the orbital
 velocity.
 
-\subsubsection{Drag Coefficient}
+\subsection{Drag Coefficient}
 
 In KSP $d$ is the \index{Drag Coefficient} drag coefficient of the
 rocket. It is a mass-based average of the drag coefficients of all
@@ -212,7 +224,7 @@ coefficient is:
   &= 0.18\nonumber
 \end{align}
 
-\subsubsection{Drag Force}
+\subsection{Drag Force}
 
 Since the drag force $\F{D}$ is directly proportional to the
 cross-sectional area $A$ of the rocket and this value is approximated
@@ -223,7 +235,7 @@ in KSP by $A = 0.008 \frac{m^2}{kg} \cdot M$ we get
   &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{SV}} \cdot \oa{SV}
 \end{align}
 
-\subsection{Gravity}
+\section{Gravity}
 
 The \index{Gravity} gravity force $\F{G}$ is directed towards the
 planets core and gets lower with increasing distance.
@@ -234,9 +246,9 @@ planets core and gets lower with increasing distance.
   \F{G} &:= - M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}
 \end{align}
 
-\subsection{Engines}
+\section{Engines}
 
-\subsubsection{Rocket Engines}
+\subsection{Rocket Engines}
 
 The \index{ISP} Specific impulse $I_{SP}$ (in seconds) describes the
 engine efficiency and is parameterized for an engine by ISP at
@@ -261,13 +273,13 @@ So we get a fuel consumption $\dot{M}$ (change of mass) \cite{SPI} of:
 \dot{M} & := \frac{\absvec{\oa{F_T}}}{ISP \cdot g_0}
 \end{align}
 
-\subsubsection{Jet Engines}
+\subsection{Jet Engines}
 
 Jet Engines are described in a nonlinear way. Details can be found in
 the ``Fuel consumption as a function of atmospheric pressure`` thread
 \cite{JetEngines}
 
-\subsubsection{ISP Calculation}
+\subsection{ISP Calculation}
 
 A ship with multiple engines that have different ISP-profiles has an
 averaged ISP that is based on the ISP of all running engines.
@@ -282,7 +294,7 @@ $F_{T_i}$ and a specific impulse of $I_{SP_i}$ has a total ISP of:
   I_{SP} := \frac{\sum_i{F_{T_i}}}{\sum_i{\frac{F_{T_i}}{I_{SP_i}}}}
 \end{align}
 
-\subsubsection{Engine Thrust}
+\subsection{Engine Thrust}
 
 The total \index{Thrust} ship thrust $\F{T}$ with $n$ running engines
 with thrusts $\F{T_i}$ is
@@ -298,7 +310,7 @@ than calculated in \eqref{enginethrust}.
 It should also be noted that this equation is a vectoraddition,
 meaning that the orientation of the engines is important.
 
-\section{Acceleration}
+\chapter{Acceleration}
 
 The rocket is subect to the three forces drag $\F{D}$, gravity $\F{G}$
 and thrust $\F{T}$.  The \index{Acceleration} acceleration as a vector
@@ -308,7 +320,7 @@ $\oa{a}$ that the rocket experiences based on these forces is:
   \oa{a} &:= M^{-1} \cdot(\F{D} + \F{G} + \F{T})
 \end{align}
 
-\section{Ship Rotation}
+\chapter{Ship Rotation}
 
 There are several forces that induce a rotation on a ship.
 
@@ -328,7 +340,7 @@ The best description of Torque can be found in the ``If something has
 an SAS torque of `20', what does that actually mean?'' thread
 \cite{torque}.
 
-\section{Coordinate Conversion}
+\chapter{Coordinate Conversion}
 
 An \index{Orbit} Orbit can be described either by \index{Cartesian
   Coordinates} cartesian coordinates of a position vector $\Pos$ and a
@@ -351,7 +363,7 @@ its vicinity.
 This section contains a description of the conversion between Kepler
 and Cartesian coordinates.
 
-\subsection{Orbit-Position Conversions} \label{OrbitPositionConversions}
+\section{Orbit-Position Conversions} \label{OrbitPositionConversions}
 
 For a Kepler Orbit there are three aequivalent parameters that
 describe the position of an object on the orbit.
@@ -371,7 +383,7 @@ context usually indicates which of both is the intended one.
 There are other equivalent parameterizations possible, like for
 example time since Periapsis.
 
-\subsubsection{True Anomaly to Eccentric Anomaly} \label{ta2ea}
+\subsection{True Anomaly to Eccentric Anomaly} \label{ta2ea}
 
 The Eccentric Anomaly $E$ can be calculated from the True Anomaly $\nu$
 and Eccentricity $e$ by the formula
@@ -380,7 +392,7 @@ and Eccentricity $e$ by the formula
   E & = \atan2\left(\sqrt{1-e^2}\cdot \sin(\nu), e+\cos(\nu)\right)
 \end{align}
 
-\subsubsection{Mean Anomaly to Eccentric Anomaly} \label{ma2ea}
+\subsection{Mean Anomaly to Eccentric Anomaly} \label{ma2ea}
 
 We calculate the eccentric Anomaly $E$ by the formula $M = E - e\cdot
 \sin(E)$. Since this equation does not have a closed-form solution for
@@ -409,7 +421,7 @@ the procedure has found no solution within a specified number of runs.
 
 The resulting Eccentric anomaly is $E := target$.
 
-\subsubsection{Eccentric Anomaly to True Anomaly} \label{ea2ta}
+\subsection{Eccentric Anomaly to True Anomaly} \label{ea2ta}
 
 We get the True Anomaly by the formula
 
@@ -418,7 +430,7 @@ We get the True Anomaly by the formula
 \nu & = 2\cdot\atan2\left(\sqrt{1+e}\cdot \sin\left(\frac{E}{2}\right), \sqrt{1-e}\cdot \cos\left(\frac{E}{2}\right)\right)
 \end{align}
 
-\subsubsection{Eccentric Anomaly to Mean Anomaly} \label{ea2ma}
+\subsection{Eccentric Anomaly to Mean Anomaly} \label{ea2ma}
 
 We get the Mean Anomaly from the Eccentric Anomaly and the
 Eccentricity by the formula
@@ -427,15 +439,15 @@ Eccentricity by the formula
 M & = E - e\cdot \sin(E)
 \end{align}
 
-\subsubsection{True Anomaly to Mean Anomaly}
+\subsection{True Anomaly to Mean Anomaly}
 
 Use the methods in sections \ref{ta2ea} and \ref{ea2ma}.
 
-\subsubsection{Mean Anomaly to True Anomaly}
+\subsection{Mean Anomaly to True Anomaly}
 
 Use the methods in sections \ref{ma2ea} and \ref{ea2ta}.
 
-\subsection{Cartesian to Kepler}
+\section{Cartesian to Kepler}
 
 We can convert cartesian to kepler coordinates by the following
 equations that are explained in \cite{RSCK}, where $\mu^{(Body)}$
@@ -472,7 +484,7 @@ eccentricity vector.
     \right.
 \end{align}
 
-\subsection{Kepler to Cartesian}
+\section{Kepler to Cartesian}
 
 We can also convert kepler to cartesian coordinates by the following
 equations that are explained in \cite{RSKC}, where $\mu^{(Body)}$
@@ -492,8 +504,9 @@ within the \index{Orbital Frame of Reference} orbital frame of reference.
   \Vel & := \dddvec{\dot{\oa{o}}_X(\cos(\omega)\cos(\Omega)-sin\omega\cos(i)\sin(\Omega)) - \dot{\oa{o}}_Y(\sin(\omega)\cos(\Omega)+\cos(\omega)\cos(i)\sin(\Omega))}{\dot{\oa{o}}_X(\cos(\omega)\sin(\Omega)+sin\omega\cos(i)\cos(\Omega)) - \dot{\oa{o}}_Y(\cos(\omega)\cos(i)\cos(\Omega)-\sin(\omega)\sin(\Omega))}{\dot{\oa{o}}_X(\sin(\omega)\sin(i))+\dot{\oa{o}}_Y(cos\omega\sin(i))}
 \end{align}
 
+\part{Physics in the Game}\label{InGamePhysics}
 
-\section{Orbital Mechanics}
+\chapter{Orbital Mechanics}
 
 We can calculate the \index{Apoapsis} apoapsis $Apo$ and
 \index{Periapsis} periapsis $Peri$ (in the meaning distance to the
@@ -513,7 +526,8 @@ Conversely we can calculate the eccentricity and semi-major as
 \end{align}
 
 The velocity $V$ of an object at that orbits a Body and has a distance
-$r$ to the Planets center is according to \cite{OrbitVelocity}
+$r$ to the Planets center is according to the Vis-viva equation
+\cite{VisViva}
 
 \begin{align}
 V & := \sqrt{\mu^{(Body)} \cdot \left(\frac{2}{r} - \frac{1}{a}\right)}
@@ -537,10 +551,9 @@ is
 \begin{align}
 SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 \end{align}
-
+\part{Appendices}
 
 %\section{Index}
-
 \printindex
 
 \begin{thebibliography}{Kerbin}
@@ -620,11 +633,10 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 \bibitem{CrossProduct}
   \url{http://en.wikipedia.org/wiki/Cross_product}
 
-\bibitem{OrbitVelocity}
-  \url{http://en.wikipedia.org/wiki/Orbital_mechanics#Velocity}
+\bibitem{VisViva}
+  \url{http://en.wikipedia.org/wiki/Vis-viva_equation}
 
 \end{thebibliography}
-
 \end{document}
 
 % Local Variables:
