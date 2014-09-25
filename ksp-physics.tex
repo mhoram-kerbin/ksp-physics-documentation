@@ -553,6 +553,21 @@ is
 \begin{align}
 SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 \end{align}
+
+\section{Orbital Darkness Time}
+
+A ship orbiting a Body will spend some time in the shadow of the
+body. \index{Orbital Darknes Time}
+
+This time $T_d$ can be calculated as described in \cite{DarknessTime}.
+
+\begin{align}
+  b & := \sqrt{r_A \cdot r_P} \textrm{ the semi-minor axis}\index{Semi-minor axis}\\
+  l & := 2\frac{r_A\cdot r_P}{r_A + r_P} \textrm{ the semi-latus rectum} \index{Semi-latus rectum}\\
+  h & := \sqrt{l\mu} \textrm{ the specific angular momentum}\index{Specific angular momentum}\\
+  T_d &:= \frac{2ab}{h}\left(sin^{-1}\left(\frac{R}{b}\right)+\frac{eR}{b}\right)
+\end{align}
+
 \part{Appendices}
 
 %\section{Index}
@@ -637,6 +652,9 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \bibitem{VisViva}
   \url{http://en.wikipedia.org/wiki/Vis-viva_equation}
+
+\bibitem{DarknessTime}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Orbit_darkness_time}
 
 \end{thebibliography}
 \end{document}
