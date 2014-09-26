@@ -294,7 +294,7 @@ $9.81\frac{m}{s^2}$, but
 
 So we get a fuel consumption $\dot{M}$ (change of mass) \cite{SPI} of:
 \begin{align}
-\dot{M} & := \frac{\absvec{\oa{F_T}}}{ISP \cdot g_0}
+\dot{M} & := \frac{\absvec{\oa{F_T}}}{ISP \cdot g_0}\label{FuelConsumptionEquation}
 \end{align}
 
 \subsection{Jet Engines}
@@ -593,6 +593,47 @@ described in \cite{DarknessTime}.
   T_d &:= \frac{2ab}{h}\left(\arcsin\left(\frac{PRadius^{(Name)}}{b}\right)+\frac{e\cdot PRadius^{(Name)}}{b}\right)
 \end{align}
 
+\chapter{Engine Calculations}
+
+\section{Burn Duration}
+
+Given $\Delta V$ and a ship configuration as mass of the ship before
+the burn $M$, Specific impulse $I_{SP}$ \footnote{Remember that the
+  Specific impulse depends not only on the engines but also on the
+  pressure.} and the thrust $\absvec{\oa{F_T}}$ it is possible to
+calculate the duration of the burn $T_B$.
+
+Using \eqref{FuelConsumptionEquation} we can calculate the
+Fuelconsumption $\dot{M}$ in $\frac{kg}{s}$.
+
+In order to calculate the total amount of fuel used $M_F$ during the
+burn, we use the Tsiolkovsky rocket equation \index{Tsiolkovsky Rocket Equation}
+\cite{TsiolkovskyRocketEquation}.
+
+\begin{align}
+  \Delta V & = v_e \cdot \ln\left(\frac{M}{M-M_F}\right)\textrm{ , where}\nonumber\\
+  v_e & = I_{SP}\cdot g_0\nonumber
+\end{align}
+so we get
+\begin{align}
+  M_F & = M-\frac{M}{\exp\left(\frac{\Delta V}{v_e}\right)}\nonumber\\
+  & = M\left(1-\exp\left(-\frac{\Delta V}{v_e}\right)\right)\nonumber\\
+  & = M\left(1-\exp\left(-\frac{\Delta V}{I_{SP}\cdot g_0}\right)\right)
+\end{align}
+and can calculate the burn time
+\begin{align}
+  T_B & = \frac{M_F}{\dot{M}}\nonumber\\
+  & = \frac{M}{\absvec{\oa{F_T}}}\cdot I_{SP} \cdot g_0\left(1-\exp\left(-\frac{\Delta V}{I_{SP}\cdot g_0}\right)\right)
+\end{align}
+
+Note however that this is only valid if the current stage in the
+rocket has enough $\Delta V$ for the complete burn.
+
+\section{Thrust Weight Ratio}
+
+The Thrust Weight ratio \index{Thrust Weight Ratio} is a simple yet
+complex measurement.
+
 \part{Appendices}
 
 \chapter{Differences to the real world}\label{RealWorldDifferences}
@@ -747,6 +788,9 @@ In the real world Rockete-engines do not have a constant thrust.
 
 \bibitem{LatLongNote}
   \url{http://forum.kerbalspaceprogram.com/threads/36476?p=1433092#post1433092}
+
+\bibitem{TsiolkovskyRocketEquation}
+  \url{http://en.wikipedia.org/wiki/Tsiolkovsky_rocket_equation}
 
 \end{thebibliography}
 \end{document}
