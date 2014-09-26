@@ -63,7 +63,7 @@ summarize them in a single central place.
 
 Part \ref{InnerWorkings} describes how the Physics Engine of KSP
 works. Part \ref{InGamePhysics} describes how some in game physical
-effects can be calculated. Appendix \ref{RealWorldDifferences}
+properties can be calculated. Appendix \ref{RealWorldDifferences}
 contains a desription of the differences between the real world and
 KSP-Physics.
 
@@ -521,9 +521,9 @@ within the \index{Orbital Frame of Reference} orbital frame of reference.
 
 \part{Physics in the Game}\label{InGamePhysics}
 
-\chapter{Orbital Mechanics}
+\chapter{In Space}
 
-\section{Orbital Calculations}
+\section{Orbital Mechanics}
 
 We can calculate the \index{Apoapsis} apoapsis $r_A$ and
 \index{Periapsis} periapsis $r_P$ (in the meaning distance to the
@@ -534,7 +534,7 @@ r_A & := a \cdot (1 + e)\\
 r_P & := a \cdot (1 - e)
 \end{align}
 
-Conversely we can calculate the eccentricity and semi-major as
+Conversely we can calculate the semi-major axis and eccentricity as
 
 \begin{align}
   a & := \frac{1}{2}\cdot(r_A + r_P)\\
@@ -595,7 +595,7 @@ altitude.\index{Atmospheric Height}
 
 In KSP every Planetary Body with an atmosphere has an altitude above
 of which there is no atmosphere and this altitude can be calculated as
-described in equation \ref{AtmosphericHeightEquation}.
+described in equation \eqref{AtmosphericHeightEquation}.
 
 The density of the atmosphere also depends on the temperature and
 humidity \cite{RealDensity} but KSP does not model these.
