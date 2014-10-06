@@ -266,7 +266,7 @@ planets core and gets lower with increasing distance.
 
 \begin{align}
   \mu^{(Name)} = LocalGravityParameter^{(Name)} &:= G \cdot PMass^{(Name)} \nonumber\\
-  LocalGravity(distance) &:= \frac{LocalGravityParameter}{distance^2}\nonumber\\
+  LocalGravity(distance) &:= \frac{LocalGravityParameter}{distance^2}\label{LocalGravityEquation}\\
   \F{G} &:= - M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}
 \end{align}
 
@@ -333,6 +333,16 @@ than calculated in \eqref{enginethrust}.
 
 It should also be noted that this equation is a vectoraddition,
 meaning that the orientation of the engines is important.
+
+\subsection{Nomenclature}
+
+We will use the following abbreviations for the scalar thrust.
+
+\begin{align}
+  F_D := \absvec{\oa{F_D}}\nonumber\\
+  F_G := \absvec{\oa{F_G}}\nonumber\\
+  F_T := \absvec{\oa{F_T}}\nonumber
+\end{align}
 
 \chapter{Acceleration}
 
@@ -406,6 +416,16 @@ context usually indicates which of both is the intended one.
 
 There are other equivalent parameterizations possible, like for
 example time since Periapsis.
+
+KSP savegames store \cite{KspSaveOrbit} this information with a
+reference to epoch, namely
+
+\begin{itemize}
+\item MNA: Mean anomaly at Epoch - the position of the orbiting
+  body along the ellipse at a specific time
+\item EPH: Epoch - the reference time for the orbit
+\end{itemize}
+
 
 \subsection{True Anomaly to Eccentric Anomaly} \label{ta2ea}
 
@@ -534,6 +554,8 @@ within the \index{Orbital Frame of Reference} orbital frame of reference.
 
 \section{Orbital Mechanics}
 
+\subsection{Apsides}
+
 We can calculate the \index{Apoapsis} apoapsis $r_A$ and
 \index{Periapsis} periapsis $r_P$ (in the meaning distance to the
 Planets center) as
@@ -550,6 +572,8 @@ Conversely we can calculate the semi-major axis and eccentricity as
   e & := \frac{r_A}{a} - 1\\
   e & := 1 - \frac{r_P}{a}
 \end{align}
+
+\subsection{Orbital Velocities}
 
 The velocity $V$ of an object that orbits a Body and has a distance
 $r$ to the Planets center is according to the Vis-viva equation
@@ -570,6 +594,13 @@ $$
 In the case of a circular orbit, the speed is equal at all points on
 the orbit.
 
+For the calculation of the velocity at the border of the SOI the above
+formula can be used, but the calculation of the semi-major axis $a$ is
+different.
+
+
+\subsection{Orbital Period}
+
 The \index{Orbital Period} orbital period (with the meaning of
 \index{Siderial Period} sidereal period \cite{SIDPER}) around a Body
 is
@@ -580,17 +611,17 @@ SiderealPeriod := 2\pi\sqrt{\frac{a^3}{\mu^{(Body)}}}
 
 \section{Orbital Darkness Time}
 
-A ship orbiting a Body will spend some time in the shadow of the
+A ship orbiting a Body will spend some time in the shadow of this
 body. \index{Orbital Darknes Time}
 
-The maximal possible time $T_d$ in darkness can be calculated as
+The maximal possible time $T_d$ in darkness can be approximated as
 described in \cite{DarknessTime}.
 
 \begin{align}
   b & := \sqrt{r_A \cdot r_P} \textrm{ the semi-minor axis}\index{Semi-minor axis}\\
   l & := 2\frac{r_A\cdot r_P}{r_A + r_P} \textrm{ the semi-latus rectum} \index{Semi-latus rectum}\\
   h & := \sqrt{l\mu^{(Name)}} \textrm{ the specific angular momentum}\index{Specific angular momentum}\\
-  T_d &:= \frac{2ab}{h}\left(\arcsin\left(\frac{PRadius^{(Name)}}{b}\right)+\frac{e\cdot PRadius^{(Name)}}{b}\right)
+  T_d &:\approx \frac{2ab}{h}\left(\arcsin\left(\frac{PRadius^{(Name)}}{b}\right)+\frac{e\cdot PRadius^{(Name)}}{b}\right)
 \end{align}
 
 \chapter{Engine Calculations}
@@ -600,8 +631,8 @@ described in \cite{DarknessTime}.
 Given $\Delta V$ and a ship configuration as mass of the ship before
 the burn $M$, Specific impulse $I_{SP}$ \footnote{Remember that the
   Specific impulse depends not only on the engines but also on the
-  pressure.} and the thrust $\absvec{\oa{F_T}}$ it is possible to
-calculate the duration of the burn $T_B$.
+  pressure.} and the thrust $F_T$ it is possible to
+calculate the duration of the burn $T_B$. \index{Burn Duration}
 
 Using \eqref{FuelConsumptionEquation} we can calculate the
 Fuelconsumption $\dot{M}$ in $\frac{kg}{s}$.
@@ -623,16 +654,43 @@ so we get
 and can calculate the burn time
 \begin{align}
   T_B & = \frac{M_F}{\dot{M}}\nonumber\\
-  & = \frac{M}{\absvec{\oa{F_T}}}\cdot I_{SP} \cdot g_0\left(1-\exp\left(-\frac{\Delta V}{I_{SP}\cdot g_0}\right)\right)
+  & = \frac{M}{F_T}\cdot I_{SP} \cdot g_0\left(1-\exp\left(-\frac{\Delta V}{I_{SP}\cdot g_0}\right)\right)
 \end{align}
 
 Note however that this is only valid if the current stage in the
 rocket has enough $\Delta V$ for the complete burn.
 
-\section{Thrust Weight Ratio}
+\section{Thrust to Weight Ratio}
 
-The Thrust Weight ratio \index{Thrust Weight Ratio} is a simple yet
+The Thrust to Weight ratio \index{Thrust to Weight Ratio} TWR
+\cite{KspTwr} of a ship with mass $M$ and thrust $F_T$ is a simple yet
 complex measurement.
+
+Simple in the meaning that it can be calculated easily
+as
+\begin{align}
+  TWR := \frac{F_T}{M\cdot g}
+\end{align}
+
+where $g$ denotes the gravitational acceleration.
+
+Complex because of the choice of $g$. $g$ can be selected in different
+ways that makes it difficult to talk about, if it is not specified
+what is meant. Some versions are:
+
+\begin{itemize}
+\item $g$ is the gravity at Sealevel on Kerbin
+\item $g$ is the local gravity at the position of the ship
+  $LocalGravity(distance)$ as calculated in
+  \eqref{LocalGravityEquation}
+\item $g$ is the gravity at the Sealevel of the Body, the ship is
+  currently orbiting
+\end{itemize}
+
+For launching a rocket from the launchpad it is necessary that $TWR >
+1$. In this case $g$ is nearly equal for all variants. Within a single
+stage of a ship the TWR always increases because of the decreasing
+fuel mass.
 
 \part{Appendices}
 
@@ -647,14 +705,14 @@ In KSP every Planetary Body with an atmosphere has an altitude above
 of which there is no atmosphere and this altitude can be calculated as
 described in equation \eqref{AtmosphericHeightEquation}.
 
-The density of the atmosphere also depends on the temperature and
+The density of the atmosphere also depends on temperature, weather and
 humidity \cite{RealDensity} but KSP does not model these.
 
 \section{Drag}
 
-In the real world Drag is directly proportional to the cross-sectional
-area $A$ of the ship.  In KSP this value is approximated by the ships
-mass $M$ as described in section \ref{DragForce}.
+Drag is directly proportional to the cross-sectional area $A$ of the
+ship.  In KSP this value $A$ is approximated by the ships mass $M$ as
+described in section \ref{DragForce}.
 
 With the Add-Ons FAR \cite{FAR} and NEAR \cite{NEAR} an effort is made
 to implement a more realistic atmosphere into KSP.
@@ -682,13 +740,24 @@ The name ``Sphere of Influence'' \index{Sphere of Influence} can refer
 either to the area itself or to it's radius. This radius can be
 calculated according to the formula in \cite{SphereOfInfluence}.
 
-The Add-On Principia \cite{principia} (currently under development)
-intends to implement a more realistic
-N-Body-Physics. \index{N-Body-Physics}
+One effect of this model is that one can escape the SOI of a planet
+with a velocity that is smaller than the theoretical escape velocity,
+\index{Escape Velocity} because it is sufficient to raise the Apoapsis
+above the planets SOI.
+
+The Add-On Principia \cite{principia} intends to implement a more
+realistic N-Body-Physics \index{N-Body-Physics} model.
+
+\section{Local Gravity}
+
+The local gravity depends in the real world on the density of the
+continent below. So the local gravity differs for locations at the
+same altitude above a planet while in KSP the local gravity is
+constant for all locations on the same altitude.
 
 \section{Engine Thrust}
 
-In the real world Rockete-engines do not have a constant thrust.
+In the real world Rockete-engines do not have a constant thrust...
 % TODO
 
 %\section{Index}
@@ -792,6 +861,11 @@ In the real world Rockete-engines do not have a constant thrust.
 \bibitem{TsiolkovskyRocketEquation}
   \url{http://en.wikipedia.org/wiki/Tsiolkovsky_rocket_equation}
 
+\bibitem{KspSaveOrbit}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Orbit#Orbits_in_the_save_file}
+
+\bibitem{KspTwr}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Thrust-to-weight_ratio}
 \end{thebibliography}
 \end{document}
 
