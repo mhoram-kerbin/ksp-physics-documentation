@@ -192,9 +192,9 @@ latitude and \index{Longitude} longitude by the following formula:
   \Lat(\Pos) &:= \arctan\left(\frac{\Pos_Z}{\sqrt{\Pos_X^2+\Pos_Y^2}}\right)
 \end{align}
 
-{\bf Be advised that this happens to be only true if the inertial X is
-  aligned with body X at t = 0. That's not the case for most KSP
-  planets and moons.} \cite{LatLongNote}
+Be advised that this happens to be only true if the inertial X is
+aligned with body X at t = 0. That's not the case for most KSP planets
+and moons. \cite{LatLongNote}
 
 \section{Surface Velocity}
 
@@ -397,7 +397,11 @@ its vicinity.
 This section contains a description of the conversion between Kepler
 and Cartesian coordinates.
 
-\section{Orbit-Position Conversions} \label{OrbitPositionConversions}
+In order to convert between the two representations, it is necessary
+to keep the reference frames in order.
+
+\section{Kepler-Orbit-Position
+  Conversions} \label{KeplerOrbitPositionConversions}
 
 For a Kepler Orbit there are three aequivalent parameters that
 describe the position of an object on the orbit.
@@ -405,7 +409,8 @@ describe the position of an object on the orbit.
 \begin{itemize}
 \item \index{True Anomaly} True Anomaly ($\nu$) \cite{TrueA}
 \item \index{Mean Anomaly} Mean Anomaly ($M$) \cite{MeanA}
-\item \index{Eccentric Anomaly} Eccentric Anomaly ($E$) \cite{EccentricA}
+\item \index{Eccentric Anomaly} Eccentric Anomaly ($E$)
+  \cite{EccentricA}
 \end{itemize}
 
 All of them are useful for different purposes. This section deals with
@@ -499,6 +504,9 @@ denotes the gravitational Parameter of the planet, $\oa{h}$ the
 \index{Orbital Momentum} orbital momentum vector and $\oa{e}$ the
 eccentricity vector.
 
+As reference frames we assume that inertial X is aligned with body X
+at t = 0.
+
 \begin{align}
   a &:= \left(2\cdot\absvec{\Pos}^{-1} - \frac{\absvec{\Vel}^2}{\mu^{(Body)}}\cdot \right)^{-1}\\
   \oa{h} &:= \Pos \times \Vel\nonumber\\
@@ -534,11 +542,14 @@ We can also convert kepler to cartesian coordinates by the following
 equations that are explained in \cite{RSKC}, where $\mu^{(Body)}$
 denotes the Gravitational Parameter of the planet.
 
-Use the formulas in section \ref{OrbitPositionConversions} to get the
-True Anomaly $\nu$ and Eccentric Anomaly $E$. In this calculation
-$\oa{o}$ and $\dot{\oa{o}}$ denote the position and velocity vector
-within the \index{Orbital Frame of Reference} orbital frame of reference.
+Use the formulas in section \ref{KeplerOrbitPositionConversions} to
+get the True Anomaly $\nu$ and Eccentric Anomaly $E$. In this
+calculation $\oa{o}$ and $\dot{\oa{o}}$ denote the position and
+velocity vector within the \index{Orbital Frame of Reference} orbital
+frame of reference.
 
+As reference frames we assume that inertial X is aligned with body X
+at t = 0.
 
 \begin{align}
   \absvec{\oa{o}} & := a(1-e \cdot \cos(E))\nonumber\\
@@ -547,6 +558,12 @@ within the \index{Orbital Frame of Reference} orbital frame of reference.
   \Pos & := \dddvec{\oa{o}_X(\cos(\omega)\cos(\Omega)-sin\omega\cos(i)\sin(\Omega)) - \oa{o}_Y(\sin(\omega)\cos(\Omega)+\cos(\omega)\cos(i)\sin(\Omega))}{\oa{o}_X(\cos(\omega)\sin(\Omega)+sin\omega\cos(i)\cos(\Omega)) - \oa{o}_Y(\cos(\omega)\cos(i)\cos(\Omega)-\sin(\omega)\sin(\Omega))}{\oa{o}_X(\sin(\omega)\sin(i))+\oa{o}_Y(cos\omega\sin(i))}\\
   \Vel & := \dddvec{\dot{\oa{o}}_X(\cos(\omega)\cos(\Omega)-sin\omega\cos(i)\sin(\Omega)) - \dot{\oa{o}}_Y(\sin(\omega)\cos(\Omega)+\cos(\omega)\cos(i)\sin(\Omega))}{\dot{\oa{o}}_X(\cos(\omega)\sin(\Omega)+sin\omega\cos(i)\cos(\Omega)) - \dot{\oa{o}}_Y(\cos(\omega)\cos(i)\cos(\Omega)-\sin(\omega)\sin(\Omega))}{\dot{\oa{o}}_X(\sin(\omega)\sin(i))+\dot{\oa{o}}_Y(cos\omega\sin(i))}
 \end{align}
+
+\section{KSP coordinate conversion}
+
+Depending on the location of the ship, different references for the
+Cartesian coordinate system are used. This chapter describes them once
+it is finished.
 
 \part{Physics in the Game}\label{InGamePhysics}
 
@@ -623,6 +640,15 @@ described in \cite{DarknessTime}.
   h & := \sqrt{l\mu^{(Name)}} \textrm{ the specific angular momentum}\index{Specific angular momentum}\\
   T_d &:\approx \frac{2ab}{h}\left(\arcsin\left(\frac{PRadius^{(Name)}}{b}\right)+\frac{e\cdot PRadius^{(Name)}}{b}\right)
 \end{align}
+
+Note that this is the darkness time for the case that the Apoapsis is
+in the center of the shadow. The time can be much lower if the
+Periapsis is in the shadow.
+
+In order to calculate the longest time that a ship can be without
+sunlight, the other planetary bodies can have to be taken into acount.
+
+\section{Geosynchronous Orbits}
 
 \chapter{Engine Calculations}
 
@@ -751,14 +777,15 @@ realistic N-Body-Physics \index{N-Body-Physics} model.
 \section{Local Gravity}
 
 The local gravity depends in the real world on the density of the
-continent below. So the local gravity differs for locations at the
-same altitude above a planet while in KSP the local gravity is
-constant for all locations on the same altitude.
+continent below and the form of the planetary body. So the local
+gravity differs for locations at the same distance to the planets
+center while in KSP the local gravity is constant for all locations on
+the same distance.
 
-\section{Engine Thrust}
+\section{Engines}
 
-In the real world Rockete-engines do not have a constant thrust...
-% TODO
+In the real world Rockete-engines do not have a constant thrust and
+ISP has a different meaning...
 
 %\section{Index}
 \printindex
