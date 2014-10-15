@@ -16,6 +16,7 @@
 \usepackage[nottoc]{tocbibind}
 
 \newcommand{\oa}[1]{\overrightarrow{#1}}
+\newcommand{\dv}{{\Delta}{V}}
 \newcommand{\F}[1]{\oa{F_{#1}}}
 \newcommand{\Pos}{\oa{P}}
 \newcommand{\Vel}{\oa{V}}
@@ -652,6 +653,21 @@ sunlight, the other planetary bodies can have to be taken into acount.
 
 \chapter{Engine Calculations}
 
+\section{Delta-V}
+
+Delta-V or $\dv$ \index{Delta-V} \cite{DeltaV} is a measurement of how
+much fuel is needed to reach a destination. The thread ``What Is Delta
+V?''  \cite{WhatIsDeltaV} contains answers from different points of
+view that try to explain it.
+
+Using Tsiolkovsky rocket equation \cite{TsiolkovskyRocketEquation},
+\cite{TsiolkovskyKSP} we can calculated the Delta-V a ship has, given
+its initial mass $m_0$, its dry mass $m_1$ and its $I_{sp}$.
+
+\begin{align}
+\dv := \ln\left(\frac{m_0}{m_1}\right) I_{sp} \cdot g_0
+\end{align}
+
 \section{Burn Duration}
 
 Given $\Delta V$ and a ship configuration as mass of the ship before
@@ -893,6 +909,16 @@ ISP has a different meaning...
 
 \bibitem{KspTwr}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Thrust-to-weight_ratio}
+
+\bibitem{DeltaV}
+  \url{http://en.wikipedia.org/wiki/Delta-v}
+
+\bibitem{WhatIsDeltaV}
+  \url{http://forum.kerbalspaceprogram.com/threads/60189-What-Is-Delta-V}
+
+\bibitem{TsiolkovskyKSP}
+  \url{http://wiki.kerbalspaceprogram.com/wiki/Cheat_sheet#Delta-v_.28.CE.94v.29}
+
 \end{thebibliography}
 \end{document}
 
