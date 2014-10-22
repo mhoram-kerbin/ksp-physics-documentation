@@ -683,7 +683,24 @@ Periapsis is in the shadow.
 In order to calculate the longest time that a ship can be without
 sunlight, the other planetary bodies have to be taken into acount.
 
-\section{Geosynchronous Orbits}
+\section{Geostationary Orbits}
+
+A geosynchronous orbit \index{Geosynchronous Orbit}
+\cite{GeosynchronousOrbit} is an orbit with an orbital period that
+equals the duration of one sidereal day.
+
+A geostationary orbit \index{Geostationary Orbit} \cite{GeostationaryOrbit} is a special case of
+a geosynchronous orbit with an inclination of $i=0$ that is also
+circular.
+
+To calculate the altitude of a geostationary orbit $a_G$ we use the
+following approach.
+
+\begin{align}
+  Rotation Period & = Orbital Period\nonumber\\
+RP^{(Name)} & = 2\pi\sqrt{\frac{(a_G+PRadius^{(Name)})^3}{\mu^{(Body)}}}\nonumber\\
+a_G & = \sqrt[3]{\left(\frac{RP^{(Name)}}{2\pi}\right)^2\cdot\mu^{(Body)}}-PRadius^{(Name)}
+\end{align}
 
 \chapter{Engine Calculations}
 
@@ -980,6 +997,12 @@ ISP has a different meaning...
 
 \bibitem{TsiolkovskyKSP}
   \url{http://wiki.kerbalspaceprogram.com/wiki/Cheat_sheet#Delta-v_.28.CE.94v.29}
+
+\bibitem{GeosynchronousOrbit}
+  \url{http://en.wikipedia.org/wiki/Geosynchronous_orbit}
+
+\bibitem{GeostationaryOrbit}
+  \url{http://en.wikipedia.org/wiki/Geostationary_orbit}
 
 \end{thebibliography}
 \end{document}
