@@ -704,6 +704,38 @@ a_G & = \sqrt[3]{\left(\frac{RP^{(Name)}}{2\pi}\right)^2\cdot\mu^{(Body)}}-PRadi
 
 \chapter{Engine Calculations}
 
+\section{Thrust to Weight Ratio}
+
+The Thrust to Weight ratio \index{Thrust to Weight Ratio} TWR
+\cite{KspTwr} of a ship with mass $M$ and thrust $F_T$ is a simple yet
+complex measurement.
+
+Simple in the meaning that it can be calculated easily
+as
+\begin{align}
+  TWR := \frac{F_T}{M\cdot g}
+\end{align}
+
+where $g$ denotes the gravitational acceleration.
+
+Complex because of the choice of $g$. $g$ can be selected in different
+ways that makes it difficult to talk about, if it is not specified
+what is meant. Some versions are:
+
+\begin{itemize}
+\item $g$ is the gravity at Sealevel on Kerbin
+\item $g$ is the local gravity at the position of the ship
+  $LocalGravity(distance)$ as calculated in
+  \eqref{LocalGravityEquation}
+\item $g$ is the gravity at the Sealevel of the Body, the ship is
+  currently orbiting
+\end{itemize}
+
+For launching a rocket from the launchpad it is necessary that $TWR >
+1$. In this case $g$ is nearly equal for all variants. Within a single
+stage of a ship the TWR always increases because of the decreasing
+fuel mass.
+
 \section{Delta-V}
 
 Delta-V or $\dv$ \index{Delta-V} \cite{DeltaV} is a measurement of how
@@ -781,38 +813,6 @@ and can calculate the burn time
 
 Note however that this is only valid if the current stage in the
 rocket has enough $\dv$ for the complete burn.
-
-\section{Thrust to Weight Ratio}
-
-The Thrust to Weight ratio \index{Thrust to Weight Ratio} TWR
-\cite{KspTwr} of a ship with mass $M$ and thrust $F_T$ is a simple yet
-complex measurement.
-
-Simple in the meaning that it can be calculated easily
-as
-\begin{align}
-  TWR := \frac{F_T}{M\cdot g}
-\end{align}
-
-where $g$ denotes the gravitational acceleration.
-
-Complex because of the choice of $g$. $g$ can be selected in different
-ways that makes it difficult to talk about, if it is not specified
-what is meant. Some versions are:
-
-\begin{itemize}
-\item $g$ is the gravity at Sealevel on Kerbin
-\item $g$ is the local gravity at the position of the ship
-  $LocalGravity(distance)$ as calculated in
-  \eqref{LocalGravityEquation}
-\item $g$ is the gravity at the Sealevel of the Body, the ship is
-  currently orbiting
-\end{itemize}
-
-For launching a rocket from the launchpad it is necessary that $TWR >
-1$. In this case $g$ is nearly equal for all variants. Within a single
-stage of a ship the TWR always increases because of the decreasing
-fuel mass.
 
 \chapter{Ascent Calculations}
 
