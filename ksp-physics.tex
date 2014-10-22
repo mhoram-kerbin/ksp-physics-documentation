@@ -625,7 +625,7 @@ Conversely we can calculate the semi-major axis and eccentricity as
   e & := 1 - \frac{r_P}{a}
 \end{align}
 
-\subsection{Orbital Velocities}
+\subsection{Orbital Velocities} \label{OrbitalVelocities}
 
 The velocity $V$ of an object that orbits a Body and has a distance
 $r$ to the Planets center is according to the Vis-viva equation
@@ -785,6 +785,71 @@ For launching a rocket from the launchpad it is necessary that $TWR >
 1$. In this case $g$ is nearly equal for all variants. Within a single
 stage of a ship the TWR always increases because of the decreasing
 fuel mass.
+
+\chapter{Ascent Calculations}
+
+\section{General notes}
+
+We use ``ideal'' in the meaning optimized for fuel usage in this
+chapter.
+
+For a rocket the amount of fuel needed for ascending from Kerbins
+Sealevel to an orbit depends on several factors including
+
+\begin{itemize}
+\item Rocket staging configuration
+\item Ascent Path
+\end{itemize}
+
+Since these factors are quite variable, it should be noted that there
+is no single ideal ascent trajectory that fits to all rockets.
+
+That being said, Rockets that have similar TWR-configurations have
+similar ideal ascent paths.
+
+\section{Payload Fraction}
+
+The payload fraction $f_P$ of a rocket is the payload mass $m_P$ divided by
+the mass at launch $m_L$.
+\begin{align}
+  f_P := \frac{m_P}{m_L}
+\end{align}
+
+We define the payload mass as the mass of the parts of the rocket that
+stay in orbit after launch and are not used in any way to help with
+the ascent. For example a engine that is ignited before reaching orbit
+is not considered for the payload mass.
+
+In stock KSP payload fractions above 20\% have been
+reached for Kerbin. \cite{PayloadFractionChallenge}
+
+\section{Delta-V Requirements}
+
+As stated in \cite{AscentDeltaVApproximation} the amount $\dv_L$ of
+Delta-V needed to ascend from sealevel to a stable orbit above the
+atmosphere can be approximated by the sum of
+\begin{itemize}
+\item Orbital Speed $v_o$ on an orbit above the atmosphere with a
+  radius $r_o$
+\item drag losses during a vertical ascent $\dv_D$
+\item gravity losses during a vertical ascent $\dv_G$
+\end{itemize}
+
+While the orbital speed can be calculated as stated in chapter
+\ref{OrbitalVelocities}, the other two can be approximated in the
+following way. \cite{AscentDeltaVApproximationFormula}
+
+\begin{align}
+  \dv_D & :\approx \frac{v_o}{TWR-1}\\
+  \dv_G & :\approx G\cdot PMass^{(Name)}\left(\frac{1}{PRadius^{(Name)}}-\frac{1}{r_o}\right)\\
+  \dv_L & :\approx v_o + \dv_D + \dv_G
+\end{align}
+
+where $TWR$ denotes the rockets TWR at the begin of the launch at the
+launchsite.
+
+As a replacement for the orbital speed the escape velocity
+\cite{EscapeVelocity} can be used.
 
 \part{Appendices}
 
@@ -1003,6 +1068,18 @@ ISP has a different meaning...
 
 \bibitem{GeostationaryOrbit}
   \url{http://en.wikipedia.org/wiki/Geostationary_orbit}
+
+\bibitem{PayloadFractionChallenge}
+  \url{http://forum.kerbalspaceprogram.com/threads/55615-Payload-Fraction-Challenge}
+
+\bibitem{AscentDeltaVApproximation}
+  \url{http://forum.kerbalspaceprogram.com/threads/46194-I-need-someone-help-me-do-some-math-for-launch-optimization?p=987663#post987663}
+
+\bibitem{AscentDeltaVApproximationFormula}
+  \url{http://forum.kerbalspaceprogram.com/threads/97801-I-need-help-making-a-delta-v-map?p=1495975#post1495975}
+
+\bibitem{EscapeVelocity}
+  \url{http://en.wikipedia.org/wiki/Escape_velocity}
 
 \end{thebibliography}
 \end{document}
