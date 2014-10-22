@@ -721,7 +721,35 @@ its initial mass $m_0$, its dry mass $m_1$ and its $\isp$.
 
 This formula is much more useful in vacuum than in the atmosphere,
 because $\isp$ depends on the pressure and the pressure changes with
-altitude within the atmosphere.
+altitude within the atmosphere. And note that this formula is only
+correct within a single stage.
+
+\section{Delta-V Upper Bound}
+
+The maximal theoretical possible amount of Delta-V $\dv_M$ within a
+single stage can be calculated based on the $\isp$ of the engines
+within this stage and an upper bound of the full fueltank : dry
+fueltak mass ratio. Fuel tanks in KSP have an upper bound for this
+ratio of $9:1$.
+
+\begin{align}
+  \dv_M & < \ln\left(\frac{9}{1}\right) \cdot \isp \cdot g_0\nonumber\\
+  & = \ln(9) \cdot \isp \cdot g_0\nonumber\\
+  & \approx \left\{
+    \begin{array}{r l}
+      4747 \frac{m}{s} & \textrm{for LV-N Atomic Rocket Motor on Kerbins Sealevel}\\
+      6904 \frac{m}{s} & \textrm{for Mainsail on Kerbins Sealevel}\\
+      7551 \frac{m}{s} & \textrm{for Rockomax 48-7S in vacuum}\\
+      8414 \frac{m}{s} & \textrm{for LV-909 or Toroidal Aerospike Rocket in vacuum}\\
+      17261 \frac{m}{s} & \textrm{for LV-N Atomic Rocket Motor in vacuum}
+    \end{array}
+  \right.
+\end{align}
+
+Note however that these bounds are far from reality, since they do not
+account for Engine or payload mass and induce a ridiculously low
+$TWR$.  Ships that have an average vacuum $\dv$ of $7000 \frac{m}{s}$
+per stage are feasible. \cite{DeltaVMaximizationChallenge}
 
 \section{Burn Duration}
 
@@ -820,8 +848,8 @@ stay in orbit after launch and are not used in any way to help with
 the ascent. For example a engine that is ignited before reaching orbit
 is not considered for the payload mass.
 
-In stock KSP payload fractions above 20\% have been
-reached for Kerbin. \cite{PayloadFractionChallenge}
+In stock KSP payload fractions above 20\% have been reached on
+Kerbin. \cite{PayloadFractionChallenge}
 
 \section{Delta-V Requirements}
 
@@ -1080,6 +1108,9 @@ ISP has a different meaning...
 
 \bibitem{EscapeVelocity}
   \url{http://en.wikipedia.org/wiki/Escape_velocity}
+
+\bibitem{DeltaVMaximizationChallenge}
+  \url{http://forum.kerbalspaceprogram.com/threads/59823-Delta-V-Maximization-Challenge}
 
 \end{thebibliography}
 \end{document}
