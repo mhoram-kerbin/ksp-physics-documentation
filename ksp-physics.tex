@@ -47,6 +47,9 @@
   equations are also applicable to real life situations - if you ever
   happen to stumble into one.
 
+  Aspects of Stock Aerodynamic have changed in KSP V 1.0 So these
+  sections do not apply anymore.
+
 \end{abstract}
 
 \tableofcontents
@@ -289,10 +292,10 @@ in KSP by $A = 0.008 \frac{m^2}{kg} \cdot M$ we get
 
 \begin{align}
   \F{D} &:= - 0.5 \cdot \rho(alt)\cdot \absvec{\oa{SV}}^2\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \frac{\oa{SV}}{\absvec{\oa{SV}}} \nonumber\\
-  &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{SV}} \cdot \oa{SV}
+  &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{SV}} \cdot \oa{SV}\label{DragForceFormula}
 \end{align}
 
-\section{Gravity}
+\section{Gravity}\label{GravityForce}
 
 The \index{Gravity} gravity force $\F{G}$ is directed towards the
 planets core and gets lower with increasing distance.
@@ -300,7 +303,7 @@ planets core and gets lower with increasing distance.
 \begin{align}
   \mu^{(Name)} = LocalGravityParameter^{(Name)} &:= G \cdot PMass^{(Name)} \nonumber\\
   LocalGravity(distance) &:= \frac{LocalGravityParameter}{distance^2}\label{LocalGravityEquation}\\
-  \F{G} &:= - M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}
+  \F{G} &:= - M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}\label{GravityForceFormula}
 \end{align}
 
 \section{Engines}
@@ -706,7 +709,7 @@ a_G & = \sqrt[3]{\left(\frac{RP^{(Name)}}{2\pi}\right)^2\cdot\mu^{(Body)}}-PRadi
 
 \section{Hohmann Transfer}
 
-\subsection{$\dv$ Calculations}
+\subsection{Delta-V Calculations}
 
 \subsection{Phase Angles}
 
@@ -892,6 +895,44 @@ launchsite.
 As a replacement for the orbital speed the escape velocity
 \cite{EscapeVelocity} can be used.
 
+\chapter{Atmosphere}
+
+\section{Terminal Velocity}
+
+The terminal velocity \cite{TerminalVelocity} \index{Terminal
+  Velocity} $V_t$ of an object in vertical motion is the velocity at
+which the sum of drag force and buoyancy \cite{Buoyancy} equals the
+gravity force. Since buoyancy is not modeled in KSP, it is left out in
+the following calculation.
+
+As described in equations \eqref{DragForceFormula} and
+\eqref{GravityForceFormula} the forces are
+
+\begin{align*}
+   \F{D} &= - 0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{SV}} \cdot \oa{SV}\\
+   \F{G} &= - M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}
+\end{align*}
+
+Setting them equal results in the terminal velocity for an object with
+drag coefficient $d$ at altitude $alt$ of
+
+\begin{align}
+   0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot M \cdot \absvec{\oa{SV}}^2 \cdot \frac{\oa{SV}}{\absvec{\oa{SV}}} & = M \cdot \mu^{(Name)}\cdot\frac{\Pos}{\absvec{\Pos}^3}\nonumber\\
+   0.5 \cdot \rho(alt)\cdot d \cdot 0.008\frac{m^2}{kg} \cdot \absvec{\oa{SV}}^2 & = \mu^{(Name)}\cdot\frac{1}{\absvec{alt + PRadius^{(Name)}}^2}\nonumber\\
+    \absvec{\oa{SV}} & = \frac{\sqrt{\frac{250 \frac{kg}{m^2} \cdot\mu^{(Name)}}{\rho(alt)\cdot d}}}{\absvec{alt + PRadius^{(Name)}}}\nonumber\\
+   V_t(alt, d) & := \frac{\sqrt{\frac{250 \frac{kg}{m^2} \cdot\mu^{(Name)}}{\rho(alt)\cdot d}}}{\absvec{alt + PRadius^{(Name)}}}
+\end{align}
+
+\subsection{Kerbin}
+For Kerbin the Terminal velocities according to this formula are like
+on the Wikipage \cite{Kerbin}.
+
+\begin{tabular}{rr}
+  Altitude (m) & Terminal Velocity (m/s)\\
+  75 & \\
+  1000 & \\
+\end{tabular}
+
 \part{Appendices}
 
 \chapter{Differences to the real world}\label{RealWorldDifferences}
@@ -907,6 +948,10 @@ described in equation \eqref{AtmosphericHeightEquation}.
 
 The density of the atmosphere also depends on temperature, weather and
 humidity \cite{RealDensity} but KSP does not model these.
+
+Also Buoyancy \cite{Buoyancy} \index{Buoyancy} is not modeled in KSP,
+which describes the force that an object receives by displacing a
+liquid or air.
 
 \section{Drag}
 
@@ -1124,6 +1169,15 @@ ISP has a different meaning...
 
 \bibitem{DeltaVMaximizationChallenge}
   \url{http://forum.kerbalspaceprogram.com/threads/59823-Delta-V-Maximization-Challenge}
+
+\bibitem{TerminalVelocity}
+  \url{http://en.wikipedia.org/wiki/Terminal_velocity}
+
+\bibitem{Buoyancy}
+  \url{http://en.wikipedia.org/wiki/Buoyancy}
+
+%\bibitem{KerbinTerminalVelocity}
+%  \url{}
 
 \end{thebibliography}
 \end{document}
